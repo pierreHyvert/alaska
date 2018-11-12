@@ -1,0 +1,94 @@
+h1, h3
+{
+    text-align:center;
+}
+h3
+{
+    background-color:#ccc;
+    color:white;
+    font-size:1.2em;
+    margin-bottom:0px;  
+}
+.news p
+{
+    background-color:#fff;
+    margin-top:0px;
+    font-size:18px
+    
+}
+.news
+{
+    margin:auto;
+}
+
+a
+{
+    text-decoration: none;
+    color: blue;
+}
+
+*{
+    margin:0; padding:0;
+    font-family: Roboto;
+        box-sizing: border-box;
+ }
+
+html{
+    font-size: 100%;
+}
+
+
+#page
+{
+    width:600px; 
+    margin:20px auto;
+    background-color: #fff;
+    border-radius: 5px; border: 1px solid #ccc;
+    padding:20px;
+}
+
+
+ul li{
+    list-style: none; display: inline-block;
+}
+
+form, .unMessage, input, textarea, h3, .news, .news p, .aComment
+{
+    border-radius: 5px; border: 1px solid #ccc;
+    padding:20px;
+}
+
+
+form
+{
+    background-color: #eee
+}
+input, textarea,.aComment
+{
+    padding: 10px; margin: 5px 0 10px
+}
+textarea{
+    width:100%
+}
+ .unMessage
+{
+    margin-bottom: 15px;
+    padding:10px 20px;
+    width:100%;
+ }
+
+.leMessage
+{
+    border-bottom: 1px solid #ccc; display: block;
+    padding-bottom: 10px; margin-bottom: 5px
+}
+.lePseudo
+{    font-size: 0.8rem;
+    font-weight: bold
+}
+.laDate
+{
+    float: right; 
+    font-size: 0.8rem;
+    font-style: italic
+}
