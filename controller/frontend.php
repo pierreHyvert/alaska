@@ -2,8 +2,8 @@
 
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
-use \OpenClassrooms\Blog\Model\PostManager;
-use \OpenClassrooms\Blog\Model\CommentManager;
+use \Alaska\Model\PostManager;
+use \Alaska\Model\CommentManager;
 
 function listPosts() {
     $postManager = new PostManager();
@@ -42,13 +42,11 @@ function editComment($commentId){
 function replaceComment(){
     $commentManager = new CommentManager();
     $newComment = $commentManager->updateComment($_GET['comment_id'],$_GET['post_id'], $_POST['author'], $_POST['comment']);
-    
+
      if ($newComment === false) {
         die('impossible d\'ajouter le commentaire');
     } else {
         header('location: index.php?action=post&id=' . $_GET['post_id']);
     }
-    
+
 }
-
-
