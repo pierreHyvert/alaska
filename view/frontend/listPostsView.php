@@ -1,4 +1,6 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = 'Mon blog';
+      $page = 'listPostView'
+?>
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
@@ -16,7 +18,7 @@ while ($data = $posts->fetch())
                         <em>le <?= $data['creation_date_fr'] ?></em>
                     </h3>
                 </a>
-        
+
     </div>
 <?php
 }

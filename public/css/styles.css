@@ -7,14 +7,14 @@ h3
     background-color:#ccc;
     color:white;
     font-size:1.2em;
-    margin-bottom:0px;  
+    margin-bottom:0px;
 }
 .news p
 {
     background-color:#fff;
     margin-top:0px;
     font-size:18px
-    
+
 }
 .news
 {
@@ -40,11 +40,11 @@ html{
 
 #page
 {
-    width:600px; 
+    /* width:600px;
     margin:20px auto;
     background-color: #fff;
     border-radius: 5px; border: 1px solid #ccc;
-    padding:20px;
+    padding:20px; */
 }
 
 
@@ -88,7 +88,7 @@ textarea{
 }
 .laDate
 {
-    float: right; 
+    float: right;
     font-size: 0.8rem;
     font-style: italic
 }

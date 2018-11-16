@@ -1,4 +1,6 @@
-<?php $title = 'Billet'; ?>
+<?php $title = 'Billet';
+$page = 'postView'
+ ?>
 
 <?php ob_start(); ?>
         <h1>Mon super blog !</h1>
@@ -9,7 +11,7 @@
                 <?= htmlspecialchars($post['title']) ?>
                 <em>le <?= $post['creation_date_fr'] ?></em>
             </h3>
-            
+
             <p>
                 <?= nl2br(htmlspecialchars($post['content'])) ?>
             </p>
