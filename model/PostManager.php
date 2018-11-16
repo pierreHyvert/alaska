@@ -15,7 +15,6 @@ class PostManager extends Manager{
         $req = $db->prepare('SELECT number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, excerpt, likes FROM chapters WHERE id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
-
         return $post;
     }
 
@@ -55,7 +54,7 @@ class PostManager extends Manager{
 
     public function deletePost($postId){
         $db = $this -> dbConnect();
-        $req = $db->query('DELETE FROM chapters WHERE id = ?');
+        $req = $db->prepare('DELETE FROM chapters WHERE id = ?');
         $req->execute(array($postId));
         return $req;
     }

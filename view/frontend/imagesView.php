@@ -1,9 +1,11 @@
-<?php $title = 'Mon blog';
-      $page = 'listPostView'
+<?php $title = 'Bibliothèque d\'images';
+      $page = 'imagesView'
 ?>
 
 <?php ob_start(); ?>
-<h1>Liste des chapitres</h1>
+<h1>Bibliothèque d'images</h1>
+
+
 <?php
 while ($data = $posts->fetch())
 {
