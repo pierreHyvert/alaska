@@ -1,5 +1,7 @@
-<?php $title = 'Billet';
-$page = 'addPostView'
+<?php $title = 'Ajouter un chapitre';
+$page = 'addPostView';
+$description = '';
+//$postToEdit = postToArray();
  ?>
 
 <?php ob_start(); ?>
@@ -14,19 +16,25 @@ $page = 'addPostView'
 
 <form action="index.php?action=addPost" method="post" id="addPostForm">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col s12">
       <div class="form-group ">
         <label for="title">Titre du chapitre</label><br />
         <input class="form-control" type="text" id="title" name="title" />
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col s4">
+      <div class="form-group ">
+        <label for="title">Numéro de chapitre</label><br />
+        <input class="form-control" type="number" id="number_chapter" name="number_chapter" />
+      </div>
+    </div>
+    <div class="col s4">
       <div class="form-group">
         <label for="author">Auteur du chapitre</label><br />
         <input class="form-control" type="text" id="author" name="author" />
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col s4">
       <div class="form-group">
         <label for="date">Date de publication</label><br />
         <input class="form-control" type="date" id="post_date" name="post_date" />
@@ -34,37 +42,38 @@ $page = 'addPostView'
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col s12 m8">
         <label for="excerpt">Accroche (pour accueil et métas)</label><br />
         <textarea class="form-control" id="excerpt" name="excerpt"></textarea>
     </div>
-    <div class="col-sm-4">
-        <label for="id_image">Image d'illustration</label><br />
-        <input  type="file" id="id_image" name="id_image"></input>
+    <div class="col s12 m4">
+        <label for="id_image">Image d'illustration (indiquer chiffre)</label><br />
+        <!-- <input  type="file" id="id_image" name="id_image"></input> -->
+        <input class="form-control" type="number" id="id_image" name="id_image" />
+
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-12" >
+    <div class="col s12" >
       <br>
-        <textarea id="content" rows="15" name="content"></textarea>
+        <textarea id="content" rows="25" name="content"></textarea>
         <br>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col m4 hide-on-small-only">
     </div>
-    <div class="col-sm-3">
-        <input type="submit" value="Enregistrer" name="Enregistrer" />
+    <div class="col m4 s12 ">
+      <label>
+            <input type="checkbox" name="is_visible" id="is_visible" />
+            <span>Publié (cocher pour mettre le chapitre en ligne)</span>
+          </label>
     </div>
-    <div class="col-sm-3">
-        <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="is_visible">
-      <label class="form-check-label" for="is_visible">
-      Publié
-      </label>
+    <div class="col s4 offset-s3">
+        <input type="submit" value="Enregistrer" name="Enregistrer" class="btn orange" />
     </div>
-    </div>
+
   </div>
 </form>
 

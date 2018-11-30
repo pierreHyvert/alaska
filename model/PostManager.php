@@ -18,18 +18,22 @@ class PostManager extends Manager{
         return $post;
     }
 
-    public function addPost() {
-        $db = $this -> dbConnect($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt);
-        $post = $db->prepare('INSERT INTO chapters (number_chapter, title, author, post_date, id_image, content, excerpt, is_visible) VALUES(:number_chapter, :title, :author, :post_date, :id_image, :content, :excerpt, :is_visible)');
+    public function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible ) {
+        $db = $this -> dbConnect();
+
+
+        $post = $db->prepare("INSERT INTO chapters (number_chapter, title, author, post_date, id_image, content, excerpt, likes, is_visible) VALUES(:number_chapter, :title, :author, NOW(), :id_image, :content, :excerpt, 0, :is_visible)");
         $affectedLines = $post-> execute(array(
           'number_chapter' => $number_chapter,
           'title' => $title,
           'author' => $author,
-          'post_date' => $post_date,
+
           'id_image' => $id_image,
           'content' => $content,
-          'excerpt' => $excerpt
-        ));
+          'excerpt' => $excerpt,
+          'is_visible' => $is_visible
+        )) or die(print_r($post->errorInfo())); ;
+
         return $affectedLines;
     }
 

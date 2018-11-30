@@ -1,94 +1,39 @@
-h1, h3
-{
-    text-align:center;
-}
-h3
-{
-    background-color:#ccc;
-    color:white;
-    font-size:1.2em;
-    margin-bottom:0px;
-}
-.news p
-{
-    background-color:#fff;
-    margin-top:0px;
-    font-size:18px
-
-}
-.news
-{
-    margin:auto;
-}
-
-a
-{
-    text-decoration: none;
-    color: blue;
-}
-
-*{
-    margin:0; padding:0;
-    font-family: Roboto;
-        box-sizing: border-box;
- }
-
-html{
-    font-size: 100%;
-}
+  .slide-footer{
+    display: flex;
+    width:70vw;
+    justify-content: space-between;
+    margin:20px 0  0;
+  }
 
 
-#page
-{
-    /* width:600px;
-    margin:20px auto;
-    background-color: #fff;
-    border-radius: 5px; border: 1px solid #ccc;
-    padding:20px; */
-}
 
+@media only screen and (max-width:767.98px){
+/*
+  section#contenu
+  {
+    height: 100%
+  } */
+  .slide{
+    height:55vh
+  }
+  .slide-legende{
+    height:50%;
+    padding: 0 10px
+  }
+  .slide-legende h2{
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  .slide-extrait
+  {
+    font-size: 0.8rem; line-height: 1rem
+  }
 
-ul li{
-    list-style: none; display: inline-block;
-}
-
-form, .unMessage, input, textarea, h3, .news, .news p, .aComment
-{
-    border-radius: 5px; border: 1px solid #ccc;
-    padding:20px;
-}
-
-
-form
-{
-    background-color: #eee
-}
-input, textarea,.aComment
-{
-    padding: 10px; margin: 5px 0 10px
-}
-textarea{
-    width:100%
-}
- .unMessage
-{
-    margin-bottom: 15px;
-    padding:10px 20px;
-    width:100%;
- }
-
-.leMessage
-{
-    border-bottom: 1px solid #ccc; display: block;
-    padding-bottom: 10px; margin-bottom: 5px
-}
-.lePseudo
-{    font-size: 0.8rem;
-    font-weight: bold
-}
-.laDate
-{
-    float: right;
+  .slide-legende .btn
+  {
     font-size: 0.8rem;
-    font-style: italic
+    
+  }
+
+
 }

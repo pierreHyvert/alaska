@@ -1,9 +1,11 @@
-<?php $title = 'Billet';
-$page = 'postView'
+<?php
+$title = htmlspecialchars($post['title']);
+$page = 'postView';
+$description = htmlspecialchars($data['excerpt']);
  ?>
 
 <?php ob_start(); ?>
-        <h1>Mon super blog !</h1>
+        <h1><?= $post['title'] ?></h1>
         <p><a href="index.php">Retour à la liste des billets</a></p>
 
         <div class="news">

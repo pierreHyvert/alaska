@@ -24,5 +24,16 @@
       <script src="<?= $racine ?>/public/js/materialize.min.js"></script>
       <script src="<?= $racine ?>/public/js/slick.min.js"></script>
       <script src="<?= $racine ?>/public/js/init.js"></script>
+      <script>
+      $('#slider').slick({
+        infinite: true,
+        dots : true,
+        appendArrows: '#slider-arrows',
+        appendDots: '#slider-dots',
+        prevArrow:'<button type="button" class="slick-prev"><img src="img/fleche-gauche.png"></button>',
+        nextArrow:'<button type="button" class="slick-next"><img src="img/fleche-droite.png"></button>'
+
+      });
+      </script>
     </body>
 </html>

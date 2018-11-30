@@ -1,7 +1,8 @@
 <?php
-
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('view/functions.php');
+
 use \Alaska\Model\PostManager;
 use \Alaska\Model\CommentManager;
 
@@ -22,6 +23,29 @@ function post() {
     require('view/frontend/postView.php');
 }
 
+function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
+    $postManager = new PostManager();
+
+    $affectedLines = $postManager->addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible);
+
+    if ($affectedLines === false) {
+        die('impossible d\'ajouter le chapitre');
+    } else {
+        header('location: index.php?action=admin');
+    }
+}
+
+function editPost() {
+  if (isset($_GET['id'])){
+    $postManager = new PostManager();
+    $post = $postManager->getPost($_GET['id']);
+  }
+  require('view/backend/addPostView.php');
+}
+
+
+
+
 function addComment($postId, $author, $comment) {
     $commentManager = new CommentManager();
 
@@ -33,20 +57,6 @@ function addComment($postId, $author, $comment) {
     }
 }
 
-function editComment($commentId){
-    $commentManager = new CommentManager();
-    $theComment = $commentManager->getComment($commentId);
-    require('view/frontend/commentView.php');
-}
-
-function replaceComment(){
-    $commentManager = new CommentManager();
-    $newComment = $commentManager->updateComment($_GET['comment_id'],$_GET['post_id'], $_POST['author'], $_POST['comment']);
-
-     if ($newComment === false) {
-        die('impossible d\'ajouter le commentaire');
-    } else {
-        header('location: index.php?action=post&id=' . $_GET['post_id']);
-    }
+function deleteComment($commentId){
 
 }

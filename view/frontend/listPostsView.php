@@ -1,8 +1,11 @@
 <?php $title = 'Mon blog';
-      $page = 'listPostView'
+      $page = 'listPostView';
+      $description = 'Aller simple pour l\'Alaska est un roman de Jean Forteroche publié en ligne chapitre par chapitre.';
 ?>
 
 <?php ob_start(); ?>
+
+
 <h1>Liste des chapitres</h1>
 <?php
 while ($data = $posts->fetch())
