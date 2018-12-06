@@ -69,9 +69,6 @@ try{
 /// TEMPORAIRE
 
 
-        elseif ($_GET['action']== 'accueil'){
-          require('view/frontend/accueil.php');
-        }
         elseif ($_GET['action']== 'ajout'){
           require('view/admin/addPostView.php');
         }

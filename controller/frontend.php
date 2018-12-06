@@ -10,7 +10,7 @@ function listPosts() {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
 
-    require('view/frontend/listPostsView.php');
+    require('view/frontend/accueil.php');
 }
 
 function post() {

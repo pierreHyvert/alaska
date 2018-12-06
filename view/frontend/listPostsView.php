@@ -15,7 +15,7 @@ while ($data = $posts->fetch())
             <a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>">
                     <h3>
                         <?= htmlspecialchars($data['title']) ?><br>
-                        <em>le <?= $data['creation_date_fr'] ?></em>
+                        <em>le <?= $data['post_date_fr'] ?></em>
                     </h3>
                 </a>
 

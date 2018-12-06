@@ -1,6 +1,6 @@
 <?php
 $title = 'Page d\'accueil';
-$page = 'postView';
+$page = 'accueil';
 $description = '';
 ob_start(); ?>
 <nav class="white" role="navigation">
@@ -26,25 +26,22 @@ ob_start(); ?>
   </div>
 </nav>
 <div class="section no-pad-bot" id="index-banner">
+
   <div id="slider">
+    <?php
+    while ($data = $posts->fetch())
+    {
+    ?>
     <article class="slide" id="slide1" style="background-image:url('img/slide1.jpg')">
         <div class="slide-legende ">
-          <h2 class="slide-titre white-text"><span class="slide-chap bleu-clair-text">Chapitre 1 - </span>Titre du chapitre 1</h2>
-          <p class="slide-extrait white-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+          <h2 class="slide-titre white-text"><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>"><span class="slide-chap bleu-clair-text">Chapitre <?= htmlspecialchars($data['number_chapter']) ?> - </span><?= htmlspecialchars($data['title']) ?></a></h2>
+          <p class="slide-extrait white-text"><?= htmlspecialchars($data['excerpt']) ?></p>
           <div class="slide-footer">
-            <span class="nbreLikes">35 <i class="material-icons ">thumb_up</i></span><a class="waves-effect deep-orange btn">Lire le chapitre</a>
+            <span class="nbreLikes"><?= htmlspecialchars($data['likes']) ?> <i class="material-icons ">thumb_up</i></span><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>" class="waves-effect deep-orange btn">Lire le chapitre</a>
           </div>
         </div>
     </article>
-    <article class="slide" id="slide2" style="background-image:url('img/slide2.jpg')">
-      <div class="slide-legende ">
-        <h2 class="slide-titre white-text"><span class="slide-chap bleu-clair-text">Chapitre 1 - </span>Titre du chapitre 1</h2>
-        <p class="slide-extrait white-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-        <div class="slide-footer">
-          <a class="waves-effect deep-orange btn">Lire le chapitre</a>
-        </div>
-      </div>
-    </article>
+  <?php } ?>
   </div>
 
   <div id="slider-controls">

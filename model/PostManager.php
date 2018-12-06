@@ -6,7 +6,7 @@ class PostManager extends Manager{
 
     public function getPosts() {
         $db = $this -> dbConnect();
-        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, excerpt, likes FROM chapters ORDER BY number_chapter ASC');
+        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, excerpt, likes, is_visible FROM chapters ORDER BY number_chapter ASC');
         return $req;
     }
 
