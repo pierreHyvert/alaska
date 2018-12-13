@@ -5,7 +5,7 @@ $description = '';
 ob_start(); ?>
 <nav class="white" role="navigation">
   <div class="nav-wrapper valign-wrapper">
-    <a id="logo-container" class="bleu-fonce-text" href="#" class="brand-logo"><img src="img/logo.jpg" alt="Logo du blog"/></a>
+    <a id="logo-container" class="bleu-fonce-text" href="index.php" class="brand-logo"><img src="img/logo.jpg" alt="Logo du blog"/></a>
     <div id="titre" class="">
       <h1 class="bleu-fonce-text ">ALLEZ SIMPLE POUR L'ALASKA</h1>
       <p id="sous-titre" class="bleu-fonce-text hide-on-med-and-down">Un roman publié en ligne chapitre par chapitre</p>
@@ -37,7 +37,7 @@ ob_start(); ?>
           <h2 class="slide-titre white-text"><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>"><span class="slide-chap bleu-clair-text">Chapitre <?= htmlspecialchars($data['number_chapter']) ?> - </span><?= htmlspecialchars($data['title']) ?></a></h2>
           <p class="slide-extrait white-text"><?= htmlspecialchars($data['excerpt']) ?></p>
           <div class="slide-footer">
-            <span class="nbreLikes"><?= htmlspecialchars($data['likes']) ?> <i class="material-icons ">thumb_up</i></span><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>" class="waves-effect deep-orange btn">Lire le chapitre</a>
+            <span class="nbreLikes left"><?= htmlspecialchars($data['likes']) ?> <i class="material-icons ">thumb_up</i></span><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>" class="waves-effect deep-orange btn right">Lire le chapitre</a>
           </div>
         </div>
     </article>

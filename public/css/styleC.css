@@ -22,8 +22,30 @@
 .noir-text {
   color: #03191F;
 }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto;
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+}
+body {
+  background-color: white;
+}
+h2 a {
+  color: ;
+}
+h3 {
+  font-size: 2rem;
+}
 p {
   text-align: justify;
+}
+ul li {
+  list-style: none;
+  display: inline-block;
 }
 nav {
   height: inherit;
@@ -46,7 +68,7 @@ nav {
   color: #0D7E9F;
 }
 #slider {
-  width: 80vw;
+  width: 100%;
   margin: auto;
 }
 .slide {
@@ -59,8 +81,11 @@ nav {
   height: 40%;
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding: 10px 3vw;
+  width: 100vw;
+  padding: 10px 10vw;
+}
+.slide-footer {
+  margin: 20px 0 0;
 }
 div.slide-cta {
   width: 150px;
@@ -68,6 +93,7 @@ div.slide-cta {
 }
 p.slide-extrait {
   width: 70vw;
+  margin: auto;
   font-family: 'Cormorant', serif;
 }
 #slider-controls {
@@ -108,8 +134,31 @@ p.slide-extrait {
   background-color: transparent;
   border: none;
 }
-body {
-  background-color: #03191F;
+@media only screen and (max-width: 767.98px) {
+  .slide {
+    height: 55vh;
+  }
+  .slide-legende {
+    height: 50%;
+    padding: 0 10px;
+  }
+  .slide-legende h2 {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  .slide-extrait {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+  .slide-legende .btn {
+    font-size: 0.8rem;
+  }
+}
+#nav-chapitres {
+  padding-top: 40px;
+}
+.infos {
+  padding: 0 0 40px;
 }
 .news p {
   background-color: #fff;
@@ -119,33 +168,25 @@ body {
 .news {
   margin: auto;
 }
-* {
-  margin: 0;
-  padding: 0;
-  font-family: Roboto;
-  box-sizing: border-box;
+.commentaires {
+  padding: 0px;
+  margin: 60px 0;
+  border-top: 1px solid #ccc;
 }
-html {
-  font-size: 100%;
-}
-ul li {
-  list-style: none;
-  display: inline-block;
+.commentaires form {
+  margin-bottom: 40px;
 }
 form,
 .unMessage,
 input,
 textarea,
-h3,
-.news,
-.news p,
 .aComment {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 20px;
 }
 form {
-  background-color: #eee;
+  background-color: #0D7E9F;
 }
 input,
 textarea,

@@ -1,23 +1,25 @@
 <?php
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/Globals.php');
 require_once('view/functions.php');
 
 use \Alaska\Model\PostManager;
 use \Alaska\Model\CommentManager;
+use \Alaska\Model\Globals;
+
 
 function listPosts() {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
-
     require('view/frontend/accueil.php');
 }
 
+
 function post() {
     $postManager = new PostManager();
-    $commentManager = new CommentManager();
-
     $post = $postManager->getPost($_GET['id']);
+    $commentManager = new CommentManager();
     $comments = $commentManager->getComments($_GET['id']);
 
     require('view/frontend/postView.php');
@@ -44,11 +46,8 @@ function editPost() {
 }
 
 
-
-
 function addComment($postId, $author, $comment) {
     $commentManager = new CommentManager();
-
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
     if ($affectedLines === false) {
         die('impossible d\'ajouter le commentaire');
@@ -56,6 +55,9 @@ function addComment($postId, $author, $comment) {
         header('location: index.php?action=post&id=' . $postId);
     }
 }
+
+
+
 
 function deleteComment($commentId){
 

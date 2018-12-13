@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<?php $racine = 'http://localhost/alaska'; ?>
+<?php $racine = 'http://localhost/alaska';
 
+
+ ?>
 
 <html>
     <head>
