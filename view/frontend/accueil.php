@@ -14,20 +14,21 @@ ob_start(); ?>
 <p id="auteur" class="bleu-fonce-text">Jean Forteroche</p>
     <ul class="right hide-on-med-and-down">
       <li><a class="bleu-fonce-text"  href="#"><img src="img/icone-partager.png" alt="Partager ce blog sur les réseaux sociaux"/></a></li>
-      <li><a class="bleu-fonce-text"  href="#"><img src="img/icone-compte.png" alt="Se connecter pour pouvoir commenter"/></a></li>
+      <li><a class="bleu-fonce-text"  href="index.php?action=inscription"><img src="img/icone-compte.png" alt="Se connecter pour pouvoir commenter"/></a></li>
     </ul>
 
 
     <ul id="nav-mobile" class="sidenav ">
       <li><a class="bleu-fonce-text"  href="#">Partager</a></li>
-      <li><a class="bleu-fonce-text"  href="#">Se connecter</a></li>
+      <li><a class="bleu-fonce-text"  href="index.php?action=inscription">Se connecter</a></li>
     </ul>
     <a href="#" data-target="nav-mobile" class="sidenav-trigger "><i class="material-icons bleu-fonce-text">menu</i></a>
   </div>
 </nav>
-<div class="section no-pad-bot" id="index-banner">
-
-  <div id="slider">
+<div class="section" id="index-banner">
+  <div class="row">
+<div class="col s10 offset-s1">
+  <div id="slider" class="card-panel hoverable">
     <?php
     while ($data = $posts->fetch())
     {
@@ -50,7 +51,8 @@ ob_start(); ?>
   </div>
 
 </div>
-
+</div>
+</div>
 
 
 

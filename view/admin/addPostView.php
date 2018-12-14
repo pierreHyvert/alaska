@@ -14,7 +14,7 @@ $description = '';
 
 
 
-<form action="index.php?action=addPost" method="post" id="addPostForm">
+<form action="index.php?action=insertPost" method="post" id="addPostForm">
   <div class="row">
     <div class="col s12">
       <div class="form-group ">

@@ -9,6 +9,8 @@ use \Alaska\Model\CommentManager;
 use \Alaska\Model\Globals;
 
 
+
+////// POSTS ////
 function listPosts() {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
@@ -45,7 +47,7 @@ function editPost() {
   require('view/backend/addPostView.php');
 }
 
-
+//// COMMENTS /////
 function addComment($postId, $author, $comment) {
     $commentManager = new CommentManager();
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
@@ -56,9 +58,5 @@ function addComment($postId, $author, $comment) {
     }
 }
 
-
-
-
 function deleteComment($commentId){
-
 }
