@@ -47,6 +47,24 @@ ul li {
   list-style: none;
   display: inline-block;
 }
+label {
+  color: #fff;
+}
+input {
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+}
+label {
+  color: #fff;
+}
+input {
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+}
 nav {
   height: inherit;
 }
@@ -184,6 +202,15 @@ textarea,
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 20px;
+}
+label {
+  color: #fff;
+}
+input {
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
 }
 form {
   background-color: #0D7E9F;

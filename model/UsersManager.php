@@ -19,10 +19,18 @@ class UsersManager extends Manager {
       return $req;
     }
 
-    //
-    // public function connectUser(){
-    //
-    // }
+    public function getUser($user_email){
+      $db = $this -> dbConnect();
+      $req = $db->prepare('SELECT name, email, signup_date FROM users WHERE email = ?');
+      $req->execute(array($user_email));
+      $user = $req->fetch();
+      return $user;
+    }
+
+
+    public function connectUser(){
+
+    }
     //
     //
     //

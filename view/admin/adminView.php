@@ -7,7 +7,7 @@ $description = '';
  <?php ob_start(); ?>
 
 
-admin
+<a href="index.php?action=addPost">Ajouter un chapitre</a>
 
 
  <?php $content = ob_get_clean(); ?>
