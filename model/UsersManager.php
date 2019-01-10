@@ -1,6 +1,6 @@
 <?php
 namespace Alaska\Model;
-require_once('model/Manager.php');
+
 
 class UsersManager extends Manager {
 

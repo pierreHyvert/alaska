@@ -10,5 +10,6 @@
 <script src="<?= $racine ?>/public/js/materialize.min.js"></script>
 <script src="<?= $racine ?>/public/js/slick.min.js"></script>
 <script src="<?= $racine ?>/public/js/init.js"></script>
+<script src="<?= $racine ?>/public/js/ajax.js"></script>
 </body>
 </html>

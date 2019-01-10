@@ -1,36 +1,33 @@
 <?php
-$title = htmlspecialchars($post['title']);
+$title = htmlspecialchars($post_infos['title']);
 $page = 'postView';
-$description = htmlspecialchars($post['excerpt']);
+$description = htmlspecialchars($post_infos['excerpt']);
 
-if ($_GET['id']){
-  $postId = $_GET['id'];
-  $nextChap = prevNextChap('next', $postId);
-  $prevChap = prevNextChap('prev', $postId);
-}
+// var_dump($post_infos);
+
 ob_start(); ?>
 <div class="row">
   <div class="col s8 offset-s2">
     <div class="section no-pad-bot s8 offset-s2" id="index-banner">
-      <h2 class="bleu-fonce-text"><?= $post['title'] ?></h2>
+      <h2 class="bleu-fonce-text"><?= $post_infos['title'] ?></h2>
       <div class="infos">
-        <p class="left bold">par <?= $post['author'] ?> </p>
-        <p class="left italic">le <?= $post['post_date_fr'] ?></p>
+        <p class="left bold">par <?= $post_infos['author'] ?> </p>
+        <p class="left italic">le <?= $post_infos['post_date_fr'] ?></p>
         <p class="right"><a href="index.php">Retour à la liste des chapitres</a></p>
         <p class="clearfix"></p>
       </div>
       <div class="contenu">
-        <?= $post['content'] ?>
+        <?= $post_infos['content'] ?>
       </div>
 
       <div id="nav-chapitres">
-        <div class="prev-chapitre left"><a href="index.php?action=post&id=<?= $prevChap ?>" title="chapitre  du roman Allez simple pour l'Alaska">Chapitre précédent ()</a></div>
-        <div class="next-chapitre right"><a href="index.php?action=post&id=<?= $nextChap ?>" title="chapitre  du roman Allez simple pour l'Alaska">Chapitre suivant</a></div>
+        <div class="prev-chapitre left"><a href="index.php?action=post&id=<?= $post_infos['prevChapId'] ?>" title="chapitre  du roman Allez simple pour l'Alaska">Chapitre précédent (<?= $post_infos['prevChapTitle'] ?>)</a></div>
+        <div class="next-chapitre right"><a href="index.php?action=post&id=<?= $post_infos['nextChapId'] ?>" title="chapitre  du roman Allez simple pour l'Alaska">Chapitre suivant (<?= $post_infos['nextChapTitle'] ?>)</a></div>
 
       </div>
       <div class="commentaires">
         <h3>Commentaires</h3>
-        <form action="index.php?action=addComment&amp;id=<?= $postId ?>" method="post">
+        <form action="index.php?action=addComment&amp;id=<?= $post_infos['id'] ?>" method="post">
           <div>
             <label for="author">Auteur</label><br />
             <input type="text" id="author" name="author" />
@@ -51,6 +48,7 @@ ob_start(); ?>
           <div class="aComment">
             <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?> </p>
             <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+            <input type="button" class="flagger" id="<?= nl2br(htmlspecialchars($comment['id'])) ?>" onclick="request(readData,<?= nl2br(htmlspecialchars($comment['id'])) ?>);" title="signaler ce commentaire comme offenssant ou innapproprié" value="Signaler" />
           </div>
           <?php
         }

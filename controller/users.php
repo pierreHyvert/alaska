@@ -91,8 +91,14 @@ function user($email){
     $userManager = new UsersManager();
     $usersList = $userManager->getUser($email);
     require('view/frontend/userView.php');
-
 }
+
+function admin($email){
+    $userManager = new UsersManager();
+    $usersList = $userManager->getUser($email);
+    require('view/admin/adminView.php');
+}
+
 
 function connectUser(){
   $userManager = new UsersManager();
@@ -108,11 +114,14 @@ function connectUser(){
         if ($user['email'] == $email){
           $errorsC['noEmail'] = '';
           $name = $user['name'];
-          // $sale = salaison($password, $name);
-;
           if (password_verify($password, $user['password'])){
             $errorsC['wrongPass'] = '';
-            $_SESSION['connected'] = 'user';
+            if ($user['email'] == 'phyvert@wanadoo.fr'){
+              $_SESSION['connected'] = 'admin';
+            }
+            else{
+              $_SESSION['connected'] = 'user';
+            }
             $_SESSION['user_email'] = $email;
           }
         }

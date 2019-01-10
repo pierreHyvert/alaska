@@ -1,6 +1,6 @@
 <?php
 namespace Alaska\Model;
-require_once('model/Manager.php');
+
 
 class Globals extends Manager {
   public function countPosts(){

@@ -1,4 +1,6 @@
 <?php session_start();
+// echo($_SESSION['connected']);
+
 require('controller/frontend.php');
 // $_SESSION['connected'] = 'admin';
 // $_SESSION['user_email'] = 'p.hyvert@sefi.com';
@@ -14,7 +16,7 @@ if (isset($_GET['action'])) {
 
     elseif ($_GET['action'] == 'post') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
-        post();
+        post($_GET['id']);
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }
@@ -46,6 +48,11 @@ if (isset($_GET['action'])) {
           $email= $_GET['user_email'];
           require('controller/users.php');
           user($email);
+        }
+        elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin' ){
+          $email= $_GET['user_email'];
+          require('controller/users.php');
+          admin($email);
         }
         else {
           require('view/frontend/inscription.php');

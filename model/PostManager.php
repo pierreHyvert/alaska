@@ -1,33 +1,69 @@
 <?php
 namespace Alaska\Model;
-require_once('model/Manager.php');
+
 
 class PostManager extends Manager{
 
     public function getPosts() {
         $db = $this -> dbConnect();
-        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, excerpt, likes, is_visible FROM chapters ORDER BY number_chapter ASC');
+        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters ORDER BY number_chapter ASC');
         return $req;
     }
 
-    public function getPost($postId) {
+    public function getVisiblePosts() {
         $db = $this -> dbConnect();
-        $req = $db->prepare('SELECT number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, content, excerpt, likes FROM chapters WHERE id = ?');
-        $req->execute(array($postId));
-        $post = $req->fetch();
-        return $post;
+        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters WHERE is_visible = "on" ORDER BY number_chapter ASC');
+        return $req;
+    }
+
+    public function getPostInfos($posts, $post_id) {
+      $allPosts = [];
+      $i = 0;
+      $post_index = 0;
+      $prev_index = 0;
+      $next_index = 0;
+      while ($post = $posts->fetch())
+      {
+        if ($post['id'] == $post_id){
+          $post_index = $i;
+        }
+        $allPosts[] = $post;
+        $i++;
+      }
+      if($post_index == 0){
+        $prev_index = $i-1;
+        $next_index = $post_index + 1;
+        // console_log('$post_index = 0');
+      }
+      elseif($post_index == $i-1){
+        $prev_index = $post_index - 1;
+        $next_index = 0;
+        // console_log('$post_index = i');
+      }
+      else{
+        $prev_index = $post_index - 1;
+        $next_index = $post_index + 1;
+        // console_log('$post_index = autre');
+      }
+
+      $the_good_post = $allPosts[$post_index];
+      $previous_post = $allPosts[$prev_index];
+      $next_post = $allPosts[$next_index];
+
+      $the_good_post['prevChapId'] = $previous_post['id'];
+      $the_good_post['prevChapTitle'] = $previous_post['title'];
+      $the_good_post['nextChapId'] = $next_post['id'];
+      $the_good_post['nextChapTitle'] = $next_post['title'];
+      return $the_good_post;
     }
 
     public function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible ) {
         $db = $this -> dbConnect();
-
-
         $post = $db->prepare("INSERT INTO chapters (number_chapter, title, author, post_date, id_image, content, excerpt, likes, is_visible) VALUES(:number_chapter, :title, :author, NOW(), :id_image, :content, :excerpt, 0, :is_visible)");
         $affectedLines = $post-> execute(array(
           'number_chapter' => $number_chapter,
           'title' => $title,
           'author' => $author,
-
           'id_image' => $id_image,
           'content' => $content,
           'excerpt' => $excerpt,

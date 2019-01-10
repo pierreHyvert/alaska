@@ -1,6 +1,5 @@
 <?php
 namespace Alaska\Model;
-require_once('model/Manager.php');
 
 class CommentManager extends Manager {
 
@@ -20,16 +19,23 @@ class CommentManager extends Manager {
 
     public function getComment($commentId){
         $db = $this->dbConnect();
-        // TODO : requete ---> $theComment = $db->prepare('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id = ?');
+        $theComment = $db->prepare('SELECT id, id_chapter, author, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, content, flags, likes FROM comments WHERE id = ?');
         $theComment->execute(array($commentId));
-
         return $theComment;
     }
+
+
+    public function flagComment($comment_id, $flags){
+        $db = $this->dbConnect();
+        $theComment = $db->prepare('UPDATE comments SET flags = ? WHERE id = ?');
+        $replacedComment = $theComment->execute(array($flags, $comment_id));
+        return $replacedComment;
+    }
+
 
     public function deleteComment($comment_id, $post_id, $author, $comment){
         $db = $this->dbConnect();
         // TODO : requete ---> $theComment = $db->prepare('UPDATE comments SET post_id = ?, author = ?, comment = ? , comment_date = NOW() WHERE id = ?');
-
         $replacedComment = $theComment->execute(array($post_id, $author, $comment, $comment_id));
         return $replacedComment;
     }
