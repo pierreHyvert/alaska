@@ -22,34 +22,27 @@ class PostManager extends Manager{
       $post_index = 0;
       $prev_index = 0;
       $next_index = 0;
-      while ($post = $posts->fetch())
-      {
+      while ($post = $posts->fetch()){
         if ($post['id'] == $post_id){
-          $post_index = $i;
-        }
+          $post_index = $i;}
         $allPosts[] = $post;
         $i++;
       }
       if($post_index == 0){
         $prev_index = $i-1;
         $next_index = $post_index + 1;
-        // console_log('$post_index = 0');
       }
       elseif($post_index == $i-1){
         $prev_index = $post_index - 1;
         $next_index = 0;
-        // console_log('$post_index = i');
       }
       else{
         $prev_index = $post_index - 1;
         $next_index = $post_index + 1;
-        // console_log('$post_index = autre');
       }
-
       $the_good_post = $allPosts[$post_index];
       $previous_post = $allPosts[$prev_index];
       $next_post = $allPosts[$next_index];
-
       $the_good_post['prevChapId'] = $previous_post['id'];
       $the_good_post['prevChapTitle'] = $previous_post['title'];
       $the_good_post['nextChapId'] = $next_post['id'];
@@ -88,6 +81,44 @@ class PostManager extends Manager{
           'id' => $post_id
         ));
         return $affectedLines;
+    }
+
+    public function likePost($post_id, $flags){
+        $db = $this->dbConnect();
+        $thePost = $db->prepare('UPDATE chapters SET likes = ? WHERE id = ?');
+        $replacedPost = $thePost->execute(array($flags, $post_id));
+        return $replacedPost;
+    }
+
+
+    public function checkLikes($post_id, $user_id){
+      $db = $this->dbConnect();
+      $theLikes = $db->prepare('SELECT id FROM likes WHERE post_id = :post_id AND user_id = :user_id');
+      $theLikes-> execute(array(
+        'post_id' => $post_id,
+        'user_id' => $user_id)) or die(print_r($theLikes->errorInfo()));
+      $theLike = $theLikes->fetch();
+      $theLike = $theLike['id'];
+      return $theLike;
+    }
+
+
+    public function likesManagement($post_id, $user_id){
+        $theLike = $this->checkLikes($post_id, $user_id);
+          if ($theLike == null){
+            $db = $this->dbConnect();
+            $theNewLike = $db->prepare('INSERT INTO likes(post_id, user_id) VALUES (:post_id, :user_id)');
+            $newLike = $theNewLike->execute(array(
+              'post_id' => $post_id,
+              'user_id' => $user_id)) or die(print_r($theNewLike->errorInfo()));
+              return('liked');
+          }
+          elseif ($theLike>0){
+            $db = $this->dbConnect();
+            $theNewLike = $db->prepare('DELETE FROM likes WHERE id = ?');
+            $newLike = $theNewLike->execute(array($theLike)) or die(print_r($theNewLike->errorInfo()));
+            return('unliked');
+          }
     }
 
 

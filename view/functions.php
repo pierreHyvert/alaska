@@ -57,6 +57,31 @@ function console_log( $data ) {
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
 
+function flagger($comment_id, $user_id){
+  $commentManager = new CommentManager();
+  $flagged = $commentManager->checkFlags($comment_id, $user_id);
+if($flagged==null){
+  $flagButton = '<input type="button" class="flagger button" id="'.$comment_id.'" onclick="flagRequest(flag,'.$comment_id.','.$user_id.');" title="signaler ce commentaire comme offenssant ou innapproprié" value="Signaler" />';
+}
+elseif($flagged>0){
+  $flagButton = '<input type="button" class="flagger button" id="'.$comment_id.'" onclick="flagRequest(flag,'.$comment_id.','.$user_id.');" title="Annuler le signalement" value="Annuler le signalement" />';
+}
+return $flagButton;
+}
+
+
+function liker($post_id, $user_id){
+  $postManager = new PostManager();
+  $liked = $postManager->checkLikes($post_id, $user_id);
+if($liked==null){
+  $likeButton = '<input type="button" class="liker button" id="'.$post_id.'" onclick="likeRequest(like,'.$post_id.','.$user_id.');" title="aimer ce post" value="J\'aime" />';
+}
+elseif($liked>0){
+  $likeButton = '<input type="button" class="liker button" id="'.$post_id.'" onclick="likeRequest(like,'.$post_id.','.$user_id.');" title="Unlike" value="Je n\'aime plus" />';
+}
+return $likeButton;
+}
+
 
 
 

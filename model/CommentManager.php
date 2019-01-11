@@ -24,7 +24,6 @@ class CommentManager extends Manager {
         return $theComment;
     }
 
-
     public function flagComment($comment_id, $flags){
         $db = $this->dbConnect();
         $theComment = $db->prepare('UPDATE comments SET flags = ? WHERE id = ?');
@@ -32,6 +31,35 @@ class CommentManager extends Manager {
         return $replacedComment;
     }
 
+    public function checkFlags($comment_id, $user_id){
+      $db = $this->dbConnect();
+      $theFlags = $db->prepare('SELECT id FROM flags WHERE comment_id = :comment_id AND user_id = :user_id');
+      $theFlags-> execute(array(
+        'comment_id' => $comment_id,
+        'user_id' => $user_id)) or die(print_r($theFlags->errorInfo()));
+      $theFlag = $theFlags->fetch();
+      $theFlag = $theFlag['id'];
+      return $theFlag;
+    }
+
+
+    public function flagsManagement($comment_id, $user_id){
+        $theFlag = $this->checkFlags($comment_id, $user_id);
+          if ($theFlag == null){
+            $db = $this->dbConnect();
+            $theNewFlag = $db->prepare('INSERT INTO flags(comment_id, user_id) VALUES (:comment_id, :user_id)');
+            $newFlag = $theNewFlag->execute(array(
+              'comment_id' => $comment_id,
+              'user_id' => $user_id)) or die(print_r($theNewFlag->errorInfo()));
+              return('flagged');
+          }
+          elseif ($theFlag>0){
+            $db = $this->dbConnect();
+            $theNewFlag = $db->prepare('DELETE FROM flags WHERE id = ?');
+            $newFlag = $theNewFlag->execute(array($theFlag)) or die(print_r($theNewFlag->errorInfo()));
+            return('unflagged');
+          }
+    }
 
     public function deleteComment($comment_id, $post_id, $author, $comment){
         $db = $this->dbConnect();

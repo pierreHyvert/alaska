@@ -9,6 +9,8 @@ use \Alaska\Model\PostManager;
 use \Alaska\Model\CommentManager;
 use \Alaska\Model\Globals;
 
+if (!isset($_SESSION['user_id'])){$_SESSION['user_id']='';}
+
 
 
 ////// POSTS ////

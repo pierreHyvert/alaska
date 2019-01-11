@@ -3,8 +3,6 @@ $title = htmlspecialchars($post_infos['title']);
 $page = 'postView';
 $description = htmlspecialchars($post_infos['excerpt']);
 
-// var_dump($post_infos);
-
 ob_start(); ?>
 <div class="row">
   <div class="col s8 offset-s2">
@@ -18,6 +16,13 @@ ob_start(); ?>
       </div>
       <div class="contenu">
         <?= $post_infos['content'] ?>
+      </div>
+
+      <div id="liker">
+      <?php if ($_SESSION['user_id']){
+          $likeButton = liker($post_infos['id'], $_SESSION['user_id']);
+          echo $likeButton;
+        } ?>
       </div>
 
       <div id="nav-chapitres">
@@ -48,7 +53,12 @@ ob_start(); ?>
           <div class="aComment">
             <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?> </p>
             <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
-            <input type="button" class="flagger" id="<?= nl2br(htmlspecialchars($comment['id'])) ?>" onclick="request(readData,<?= nl2br(htmlspecialchars($comment['id'])) ?>);" title="signaler ce commentaire comme offenssant ou innapproprié" value="Signaler" />
+            <div id="flagger">
+            <?php if ($_SESSION['user_id']){
+                $flagButton = flagger($comment['id'], $_SESSION['user_id']);
+                echo $flagButton;
+              } ?>
+            </div>
           </div>
           <?php
         }

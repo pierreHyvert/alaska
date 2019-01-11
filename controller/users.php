@@ -123,6 +123,7 @@ function connectUser(){
               $_SESSION['connected'] = 'user';
             }
             $_SESSION['user_email'] = $email;
+            $_SESSION['user_id'] = $user['id'];
           }
         }
       }
