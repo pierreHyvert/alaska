@@ -15,16 +15,16 @@ use \Alaska\Model\UsersManager;
 
 $post_id = (isset($_GET["thePost"])) ? $_GET["thePost"] : NULL;
 $user_id = (isset($_GET["user_id"])) ? $_GET["user_id"] : NULL;
+$sens = (isset($_GET["sens"])) ? $_GET["sens"] : NULL;
 if ($post_id) {
   $postManager = new PostManager();
   $posts = $postManager->getVisiblePosts();
   $post = $postManager->getPostInfos($posts, $post_id);
   $userManager = New UsersManager();
-
-
   $current_likes = $post['likes'];
-  $current_likes++;
-  $likeged_post = $postManager->likePost($post_id, $current_likes);
+  if($sens == "up"){++$current_likes;}
+  if($sens == "down"){--$current_likes;}
+  $liked_post = $postManager->likePost($post_id, $current_likes);
   $update_likes = $postManager->likesManagement($post_id, $user_id);
   echo($update_likes);
 } else {

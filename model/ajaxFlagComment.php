@@ -15,6 +15,7 @@ use \Alaska\Model\UsersManager;
 
 $comment_id = (isset($_GET["theComment"])) ? $_GET["theComment"] : NULL;
 $user_id = (isset($_GET["user_id"])) ? $_GET["user_id"] : NULL;
+$sens = (isset($_GET["sens"])) ? $_GET["sens"] : NULL;
 if ($comment_id) {
   $commentManager = new CommentManager();
   $comment = $commentManager->getComment($comment_id);
@@ -22,7 +23,8 @@ if ($comment_id) {
 
   $data = $comment->fetch();
   $current_flags = $data['flags'];
-  $current_flags++;
+  if($sens == "up"){++$current_flags;}
+  if($sens == "down"){--$current_flags;}
   $flagged_comment = $commentManager->flagComment($comment_id, $current_flags);
   $update_flags = $commentManager->flagsManagement($comment_id, $user_id);
   echo($update_flags);

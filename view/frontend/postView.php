@@ -10,7 +10,7 @@ ob_start(); ?>
       <h2 class="bleu-fonce-text"><?= $post_infos['title'] ?></h2>
       <div class="infos">
         <p class="left bold">par <?= $post_infos['author'] ?> </p>
-        <p class="left italic">le <?= $post_infos['post_date_fr'] ?></p>
+        <p class="left italic">&nbsp;le <?= $post_infos['post_date_fr'] ?></p>
         <p class="right"><a href="index.php">Retour à la liste des chapitres</a></p>
         <p class="clearfix"></p>
       </div>

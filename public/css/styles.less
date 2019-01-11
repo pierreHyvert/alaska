@@ -96,7 +96,7 @@ nav{
   height: inherit
 }
 .nav-wrapper{
-  justify-content:  space-around
+  justify-content:space-around;
 }
 #logo-container{
     margin:0 3vw;
@@ -108,12 +108,19 @@ nav{
 
 #titre{
  display:inline-block;
+ padding:  0 0;
+
 }
 #titre h1{
   font-size:30px;
   margin: 0;
-  color:@bleufonce
+  color:@bleufonce;
 }
+
+#sous-titre{
+  line-height: 130%;
+}
+
 
 
 
@@ -196,6 +203,16 @@ p.slide-extrait{
   border: none
 }
 
+.nbreLikes{
+  color: white;
+  display:flex;
+  font-size: 1.2em
+}
+
+.nbreLikes i{
+  margin-left:5px
+}
+
 /* slider mobile */
 @media only screen and (max-width:767.98px){
   .slide{
@@ -233,15 +250,8 @@ p.slide-extrait{
   padding: 0 0 40px
 }
 
-.news p
-{
-    background-color:#fff;
-    margin-top:0px;
-    font-size:18px
-}
-.news
-{
-    margin:auto;
+.contenu{
+  text-align: justify;
 }
 
 .commentaires{
@@ -293,6 +303,6 @@ textarea{
 #flagger{
   text-align: right
 }
-input[type=button].flagger{
+input[type=button], input[type=submit]{
 padding: 5px 10px 10px!important;
 }

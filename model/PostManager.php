@@ -83,10 +83,10 @@ class PostManager extends Manager{
         return $affectedLines;
     }
 
-    public function likePost($post_id, $flags){
+    public function likePost($post_id, $likes){
         $db = $this->dbConnect();
         $thePost = $db->prepare('UPDATE chapters SET likes = ? WHERE id = ?');
-        $replacedPost = $thePost->execute(array($flags, $post_id));
+        $replacedPost = $thePost->execute(array($likes, $post_id));
         return $replacedPost;
     }
 

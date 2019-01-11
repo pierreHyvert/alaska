@@ -79,11 +79,15 @@ nav {
 }
 #titre {
   display: inline-block;
+  padding: 0 0;
 }
 #titre h1 {
   font-size: 30px;
   margin: 0;
   color: #0D7E9F;
+}
+#sous-titre {
+  line-height: 130%;
 }
 #slider {
   width: 100%;
@@ -152,6 +156,14 @@ p.slide-extrait {
   background-color: transparent;
   border: none;
 }
+.nbreLikes {
+  color: white;
+  display: flex;
+  font-size: 1.2em;
+}
+.nbreLikes i {
+  margin-left: 5px;
+}
 @media only screen and (max-width: 767.98px) {
   .slide {
     height: 55vh;
@@ -178,13 +190,8 @@ p.slide-extrait {
 .infos {
   padding: 0 0 40px;
 }
-.news p {
-  background-color: #fff;
-  margin-top: 0px;
-  font-size: 18px;
-}
-.news {
-  margin: auto;
+.contenu {
+  text-align: justify;
 }
 .commentaires {
   padding: 0px;
@@ -233,6 +240,7 @@ textarea {
 #flagger {
   text-align: right;
 }
-input[type=button].flagger {
+input[type=button],
+input[type=submit] {
   padding: 5px 10px 10px !important;
 }
