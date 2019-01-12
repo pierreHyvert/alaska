@@ -6,13 +6,29 @@ class PostManager extends Manager{
 
     public function getPosts() {
         $db = $this -> dbConnect();
-        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters ORDER BY number_chapter ASC');
+        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters ORDER BY number_chapter ASC');
         return $req;
+    }
+
+    public function getPost($post_id) {
+        $db = $this -> dbConnect();
+        $req = $db->prepare('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters WHERE id = ?');
+        $req->execute(array($post_id));
+        $post = $req->fetch();
+        return $post;
+    }
+
+    public function getPostAdmin($post_id) {
+        $db = $this -> dbConnect();
+        $req = $db->prepare('SELECT id, number_chapter, title, author, post_date, id_image, content, excerpt, likes, is_visible FROM chapters WHERE id = ?');
+        $req->execute(array($post_id));
+        $post = $req->fetch();
+        return $post;
     }
 
     public function getVisiblePosts() {
         $db = $this -> dbConnect();
-        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters WHERE is_visible = "on" ORDER BY number_chapter ASC');
+        $req = $db->query('SELECT id, number_chapter, title, author, DATE_FORMAT(post_date, \'%d/%m/%Y\') AS post_date_fr, id_image, content, excerpt, likes, is_visible FROM chapters WHERE is_visible = "on" ORDER BY number_chapter ASC');
         return $req;
     }
 
@@ -52,11 +68,13 @@ class PostManager extends Manager{
 
     public function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible ) {
         $db = $this -> dbConnect();
-        $post = $db->prepare("INSERT INTO chapters (number_chapter, title, author, post_date, id_image, content, excerpt, likes, is_visible) VALUES(:number_chapter, :title, :author, NOW(), :id_image, :content, :excerpt, 0, :is_visible)");
+        $date_field = date('Y-m-d',strtotime($post_date));
+        $post = $db->prepare("INSERT INTO chapters (number_chapter, title, author, post_date, id_image, content, excerpt, likes, is_visible) VALUES(:number_chapter, :title, :author, :post_date, :id_image, :content, :excerpt, 0, :is_visible)");
         $affectedLines = $post-> execute(array(
           'number_chapter' => $number_chapter,
           'title' => $title,
           'author' => $author,
+          'post_date' => $date_field,
           'id_image' => $id_image,
           'content' => $content,
           'excerpt' => $excerpt,
@@ -66,14 +84,15 @@ class PostManager extends Manager{
         return $affectedLines;
     }
 
-     public function editPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $post_id) {
+     public function updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
+       $date_field = date('Y-m-d',strtotime($post_date));
         $db = $this -> dbConnect();
         $post = $db->prepare('UPDATE chapters SET number_chapter = :number_chapter, title = :title, author = :author, post_date = :post_date, id_image = :id_image, content = :content, excerpt = :excerpt, is_visible = :is_visible WHERE id = :id');
         $affectedLines = $post-> execute(array(
           'number_chapter' => $number_chapter,
           'title' => $title,
           'author' => $author,
-          'post_date' => $post_date,
+          'post_date' => $date_field,
           'id_image' => $id_image,
           'content' => $content,
           'excerpt' => $excerpt,
@@ -82,6 +101,23 @@ class PostManager extends Manager{
         ));
         return $affectedLines;
     }
+
+   //  public function updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
+   //     $db = $this -> dbConnect();
+   //     $post = $db->prepare('UPDATE chapters SET number_chapter = :number_chapter, title = :title, author = :author, post_date = :post_date, id_image = :id_image, content = :content, excerpt = :excerpt, is_visible = :is_visible WHERE id = :id');
+   //     $affectedLines = $post-> execute(array(
+   //       'number_chapter' => $number_chapter,
+   //       'title' => $title,
+   //       'author' => $author,
+   //       'post_date' => $post_date,
+   //       'id_image' => $id_image,
+   //       'content' => $content,
+   //       'excerpt' => $excerpt,
+   //       'is_visible' => $is_visible,
+   //       'id' => $post_id
+   //     ));
+   //     return $affectedLines;
+   // }
 
     public function likePost($post_id, $likes){
         $db = $this->dbConnect();

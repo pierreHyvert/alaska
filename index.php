@@ -2,6 +2,8 @@
 // echo($_SESSION['connected']);
 
 require('controller/frontend.php');
+require('controller/backend.php');
+
 // $_SESSION['connected'] = 'admin';
 // $_SESSION['user_email'] = 'p.hyvert@sefi.com';
 
@@ -50,9 +52,8 @@ if (isset($_GET['action'])) {
           user($email);
         }
         elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin' ){
-          $email= $_GET['user_email'];
-          require('controller/users.php');
-          admin($email);
+          require('controller/backend.php');
+          listAdminPost();
         }
         else {
           require('view/frontend/inscription.php');
@@ -83,7 +84,6 @@ if (isset($_GET['action'])) {
     elseif ($_GET['action']== 'admin'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
-        require('controller/backend.php');
         listAdminPost();
       }
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}
@@ -104,13 +104,26 @@ if (isset($_GET['action'])) {
 
     elseif ($_GET['action']== 'insertPost'){
 
-      if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image']) && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt']) && !empty($_POST['is_visible']) )
+      if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image']) && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt'])  )
       {
-        addPost($_POST['number_chapter'], $_POST['title'], $_POST['post_date'], $_POST['id_image'], $_POST['author'], $_POST['content'], $_POST['excerpt'], $_POST['is_visible']);
+        if (empty($_POST['is_visible'])){$visible = 'off';};
+        addPost($_POST['number_chapter'], $_POST['title'], $_POST['author'], $_POST['post_date'], $_POST['id_image'], $_POST['content'], $_POST['excerpt'], $visible);
       }
-      else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
+      else {throw new Exception('Erreur insert : tous les champs ne sont pas remplis !');}
     }
 
+    elseif ($_GET['action']== 'updatePost'){
+
+      if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image'])
+      && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt']) )
+      {
+        if (empty($_POST['is_visible'])){$visible = 'off';};
+       updateThePost($_GET['id'], $_POST['number_chapter'], $_POST['title'], $_POST['author'], $_POST['post_date'], $_POST['id_image'], $_POST['content'], $_POST['excerpt'], $visible);
+      }
+      else { var_dump($_POST);
+        //throw new Exception('Erreur update : tous les champs ne sont pas remplis !');
+      }
+    }
 
     // elseif ($_GET['action']== 'editComment'){
     //     if (isset($_GET['commentId']) && $_GET['commentId'] > 0) {

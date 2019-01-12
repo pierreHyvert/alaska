@@ -1,4 +1,12 @@
 
 
+#adminright{
+  height:100vh; 
+  overflow-y: scroll;
+}
 
+#adminLeft{
+  height:100vh
+}
 
+#contenu .row:first-child{ margin: 0}

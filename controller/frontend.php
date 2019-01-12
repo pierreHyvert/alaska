@@ -30,25 +30,6 @@ function post($post_id) {
     require('view/frontend/postView.php');
 }
 
-function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
-    $postManager = new PostManager();
-
-    $affectedLines = $postManager->addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible);
-
-    if ($affectedLines === false) {
-        die('impossible d\'ajouter le chapitre');
-    } else {
-        header('location: index.php?action=admin');
-    }
-}
-
-function editPost() {
-  if (isset($_GET['id'])){
-    $postManager = new PostManager();
-    $post = $postManager->getPost($_GET['id']);
-  }
-  require('view/backend/addPostView.php');
-}
 
 //// COMMENTS /////
 function addComment($postId, $author, $comment) {
