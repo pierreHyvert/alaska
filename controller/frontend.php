@@ -41,6 +41,3 @@ function addComment($postId, $author, $comment) {
         header('location: index.php?action=post&id=' . $postId);
     }
 }
-
-function deleteComment($commentId){
-}

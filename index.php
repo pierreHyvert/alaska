@@ -52,7 +52,6 @@ if (isset($_GET['action'])) {
           user($email);
         }
         elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin' ){
-          require('controller/backend.php');
           listAdminPost();
         }
         else {
@@ -125,22 +124,18 @@ if (isset($_GET['action'])) {
       }
     }
 
-    // elseif ($_GET['action']== 'editComment'){
-    //     if (isset($_GET['commentId']) && $_GET['commentId'] > 0) {
-    //         editComment($_GET['commentId']);
-    //     }
-    //     else {throw new Exception('Erreur : aucun identifiant de commentaire envoyé');}
-    // }
-    //
-    // elseif ($_GET['action']== 'replaceComment'){
-    //     if (isset($_GET['comment_id']) && $_GET['comment_id'] > 0) {
-    //         if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-    //            replaceComment($_GET['comment_id'],$_GET['post_id'], $_POST['author'], $_POST['comment']);
-    //         }
-    //         else{throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
-    //     }
-    //     else {throw new Exception('Erreur : aucun identifiant de commentaire envoyé');}
-    // }
+    elseif ($_GET['action']== 'allComments'){
+      allComments();
+    }
+
+    elseif ($_GET['action']== 'deleteComment'){
+      if($_GET['comment_id'] && ($_GET['step'] =="valid")){
+        deleteComment($_GET['comment_id']);
+      }
+      allComments();
+    }
+
+
 
 
 

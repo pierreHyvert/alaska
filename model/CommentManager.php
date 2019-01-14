@@ -10,6 +10,13 @@ class CommentManager extends Manager {
         return $comments;
     }
 
+    public function allComments() {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('SELECT * FROM comments ORDER BY flags DESC');
+        $comments->execute();
+        return $comments;
+    }
+
     public function postComment($postId, $author, $comment) {
         $db = $this->dbConnect();
         $comments = $db->prepare('INSERT INTO comments(id_chapter, author, comment_date, content) VALUES(?, ?, NOW(), ?)');
@@ -61,10 +68,10 @@ class CommentManager extends Manager {
           }
     }
 
-    public function deleteComment($comment_id, $post_id, $author, $comment){
+    public function deleteComment($comment_id){
         $db = $this->dbConnect();
-        // TODO : requete ---> $theComment = $db->prepare('UPDATE comments SET post_id = ?, author = ?, comment = ? , comment_date = NOW() WHERE id = ?');
-        $replacedComment = $theComment->execute(array($post_id, $author, $comment, $comment_id));
+        $theComment = $db->prepare('DELETE FROM comments WHERE id = ?');
+        $replacedComment = $theComment->execute(array($comment_id));
         return $replacedComment;
     }
 }

@@ -244,29 +244,24 @@ p.slide-extrait{
 #nav-chapitres{
   padding-top:40px;
 }
-
-
+#contenu .row:first-child{
+   margin: 0
+}
 .infos{
   padding: 0 0 40px
 }
-
 .contenu{
   text-align: justify;
 }
-
 .commentaires{
   padding: 0px;
   margin: 60px 0;
   border-top:1px solid #ccc
 }
-
 .commentaires form{
   margin-bottom:40px;
 }
-
-
-form, .unMessage, input, textarea, .aComment
-{
+form, .unMessage, input, textarea, .aComment{
      border-radius: 5px; border: 1px solid #ccc;
      padding:20px;
 }
@@ -281,13 +276,10 @@ input{
   box-sizing: border-box!important;
 }
 
-
-form
-{
+form{
     background-color: @bleufonce
 }
-input, textarea,.aComment
-{
+input, textarea,.aComment{
     padding: 10px; margin: 5px 0 10px
 }
 textarea{
@@ -315,19 +307,32 @@ padding: 5px 10px 10px!important;
   display: flex;
   justify-content: space-between ;
   min-height: 120px;
+  align-items: center
 }
 #adminPostList article.notPublished {
 background-color: lightgrey}
 
 #adminPostList article img {
+  min-width: 100px;
   margin-right:50px
 }
-
 #adminPostList .nbreLikes{
   color:black;
-  font-size: 0.8em
+  font-size: 0.8em;
+  margin: 0 0px 0 20px
 }
 #adminPostList .nbreLikes i{
   color:@bleufonce;
   font-size: 1.4em
+}
+#adminright{
+  height:100vh;
+  overflow-y: scroll;
+}
+#adminLeft{
+  height:100vh
+}
+#adminright article a.btn{
+  min-width: 200px;
+  margin: 0 0 0 20px
 }
