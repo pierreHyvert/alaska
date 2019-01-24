@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: text/plain"); // Utilisation d'un header pour spécifier le type de contenu de la page. Ici, il s'agit juste de texte brut (text/plain).
+header("Content-Type: text/plain"); 
 include('Manager.php');
 include('CommentManager.php');
 include('UsersManager.php');

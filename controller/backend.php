@@ -1,9 +1,11 @@
 <?php
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/UsersManager.php');
 require_once('model/Globals.php');
 require_once('view/functions.php');
 
+use \Alaska\Model\UsersManager;
 use \Alaska\Model\PostManager;
 use \Alaska\Model\CommentManager;
 use \Alaska\Model\Globals;
@@ -58,6 +60,13 @@ function deleteComment($comment_id){
 }
 
 
+
+function getUsers(){
+  $usersManager = new UsersManager();
+  $users = $usersManager->getUsers();
+  require('view/admin/usersView.php');
+
+}
 
   // function updateThePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
   //     $postManager = new PostManager();

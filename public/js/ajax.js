@@ -65,3 +65,29 @@ function like(sData, postID, userID) {
 		$('#liker').html(button);
 	}
 }
+
+
+// bannishing device (use with care, with great power comes great responsabilities )
+function banRequest(callback, userID) {
+	var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			callback(xhr.responseText, userID);
+		}
+	};
+  xhr.open("GET", "model/ajaxBanUser.php?&user_id=" + userID, true);
+  xhr.send(null);
+}
+
+function ban(sData, userID) {
+	console.log(userID);
+	$('#'+userID+' .bannisher').remove();
+	if (sData == 'unbannished'){
+		var button = '<input type="button" class="bannisher button" onclick="banRequest(ban,'+ userID + ',\'bannish\');" title="Bannir" value="Bannir" />';
+		$('#'+userID).html(button);
+	}
+	else{
+		var button = '<input type="button" class="bannisher button" onclick="banRequest(ban,'+ userID + ',\'unbannish\');" title="De-bannir" value="De-bannir" />';
+		$('#'+userID).html(button);
+	}
+}

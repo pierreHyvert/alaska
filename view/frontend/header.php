@@ -13,8 +13,7 @@
         <link href="<?= $racine ?>/public/css/materialize.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/slick.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/styleC.css" rel="stylesheet" />
-        <!-- To DO : transferer styles.css vers le .less pour la prod -->
-        <link href="<?= $racine ?>/public/css/styles.css" rel="stylesheet" />
+        <link href="<?= $racine ?>/public/css/style-add.css" rel="stylesheet" />
     </head>
 
     <body id="<?= $page ?>">
@@ -28,8 +27,8 @@
 
 <p id="auteur" class="bleu-fonce-text">Jean Forteroche</p>
     <ul class="right hide-on-med-and-down">
-      <li><a class="bleu-fonce-text"  href="index.php?action=deconnexion" title="se déconnecter"><img src="img/icone-partager.png" alt="déconnexion"/></a></li>
       <li><a class="bleu-fonce-text"  href="index.php?action=user&user_email=<?php if (isset($_SESSION['user_email'])){echo($_SESSION['user_email']);} ?>"><img src="img/icone-compte.png" alt="Se connecter pour pouvoir commenter"/></a></li>
+      <li><a class="bleu-fonce-text"  href="index.php?action=deconnexion" title="se déconnecter"><img src="img/icone-partager.png" alt="déconnexion"/></a></li>
     </ul>
 
 

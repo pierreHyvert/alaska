@@ -1,13 +1,14 @@
 <?php
 use \Alaska\Model\PostManager;
 use \Alaska\Model\CommentManager;
+use \Alaska\Model\UsersManager;
 use \Alaska\Model\Globals;
 $racine = 'http://localhost/alaska';
 
 
 require ('view/lessc.inc.php');
 try {
-    lessc::ccompile('public/css/styles.less', 'public/css/styleC.css');
+    lessc::ccompile('public/css/styles.less', 'public/css/style.css');
 } catch (exception $ex) {
     exit('lessc fatal error:<br />'.$ex->getMessage());
 }
@@ -81,6 +82,19 @@ elseif($liked>0){
 }
 return $likeButton;
 }
+
+function bannisher($user_id){
+  $userManager = new UsersManager();
+  $banished = $userManager->checkBans($user_id);
+if($banished=="notBan"){
+  $bannishButton = '<input type="button" class="bannisher button" onclick="banRequest(ban,'.$user_id.',\'up\');" title="Bannir cet utilisateur" value="Bannir cet utilisateur" />';
+}
+else{
+  $bannishButton = '<input type="button" class="bannisher button" onclick="banRequest(ban,'.$user_id.',\'down\');" title="De-Bannir cet utilisateur" value="De-Bannir cet utilisateur" />';
+}
+return $bannishButton;
+}
+
 
 
 

@@ -296,11 +296,7 @@ html
 			input.addEventListener( 'change', function( e )
 			{
 				showFiles( e.target.files );
-
-
 				triggerFormSubmit();
-
-
 			});
 
 			// drag&drop files if the feature is available
