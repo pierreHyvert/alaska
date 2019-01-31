@@ -81,6 +81,7 @@ function banRequest(callback, userID) {
 
 function ban(sData, userID) {
 	console.log(userID);
+	console.log(sData);
 	$('#'+userID+' .bannisher').remove();
 	if (sData == 'unbannished'){
 		var button = '<input type="button" class="bannisher button" onclick="banRequest(ban,'+ userID + ',\'bannish\');" title="Bannir" value="Bannir" />';

@@ -1,1 +1,44 @@
 /* */
+
+input.liker, input.flagger, input.bannisher{
+  padding: 7px 15px 10px!important;
+}
+
+
+nav {
+  position: fixed; 
+}
+
+.postHeader{
+  background-size: cover
+}
+
+footer{
+  position: fixed; bottom:0; width:100%; padding-top:7px!important; 
+}
+footer .footer-copyright {min-height:0!important}
+
+section#contenu{
+  margin:100px 0
+}
+
+#adminView section#contenu
+{
+  margin:0; 
+}
+
+#adminLeft, #adminright{
+  background-color: #fff
+}
+#adminView p{
+  color:#000
+}
+
+@media screen and (max-width:767px;)
+{
+  footer
+  {
+    position: relative; width:100%
+  }
+
+}

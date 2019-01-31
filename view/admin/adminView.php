@@ -10,7 +10,7 @@ ob_start(); ?>
        while ($data = $posts->fetch())
          { ?>
          <article class="card-panel <?php if($data['is_visible'] != "on"){echo('notPublished');} ?>" id="<?= $data['id'] ?>">
-           <img src="img/slide1.jpg" width='100'/>
+           <img src="<?= htmlspecialchars($data['id_image']) ?>" width='100'/>
                <p class="">
                  <a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>">
                    <span class="slide-chap bleu-clair-text">Chapitre <?= htmlspecialchars($data['number_chapter']) ?> - </span><?= htmlspecialchars($data['title']) ?>
@@ -25,7 +25,7 @@ ob_start(); ?>
   <a href="index.php?action=addPost" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
 
      </div>
-   
+
 
 
  <?php $content = ob_get_clean(); ?>

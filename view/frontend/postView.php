@@ -2,17 +2,22 @@
 $title = htmlspecialchars($post_infos['title']);
 $page = 'postView';
 $description = htmlspecialchars($post_infos['excerpt']);
+$disabled='';
+if(!isset($_SESSION['connected'])){$disabled = ' disabled value="Vous devez être connecté pour commenter" ';}
+if($_SESSION['blacklisted']){$disabled = ' disabled value="Il semblerait que vous soyez blacklisté" ';}
 
 ob_start(); ?>
 <div class="row">
-  <div class="col s8 offset-s2">
-    <div class="section no-pad-bot s8 offset-s2" id="index-banner">
-      <h2 class="bleu-fonce-text"><?= $post_infos['title'] ?></h2>
-      <div class="infos">
-        <p class="left bold">par <?= $post_infos['author'] ?> </p>
-        <p class="left italic">&nbsp;le <?= $post_infos['post_date_fr'] ?></p>
-        <p class="right"><a href="index.php">Retour à la liste des chapitres</a></p>
-        <p class="clearfix"></p>
+  <div class="col m8 offset-m2 s10 offset-s1">
+    <div class="section no-pad-bot m8 offset-m2 s10 offset-s1" id="index-banner">
+      <div class="postHeader" style="background-image:url('<?= $post_infos['id_image']; ?>')">
+        <h2 class="bleu-fonce-text"><?= $post_infos['title'] ?></h2>
+        <div class="infos">
+          <p class="left bold">par <?= $post_infos['author'] ?> </p>
+          <p class="left italic">&nbsp;le <?= $post_infos['post_date_fr'] ?></p>
+          <p class="right"><a href="index.php">Retour à la liste des chapitres</a></p>
+          <p class="clearfix"></p>
+        </div>
       </div>
       <div class="contenu">
         <?= $post_infos['content'] ?>
@@ -35,11 +40,11 @@ ob_start(); ?>
         <form action="index.php?action=addComment&amp;id=<?= $post_infos['id'] ?>" method="post">
           <div>
             <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" />
+            <input type="text" id="author" name="author"<?= $disabled ?> />
           </div>
           <div>
             <label for="comment">Commentaire</label><br />
-            <textarea id="comment" name="comment"></textarea>
+            <textarea id="comment" name="comment" <?= $disabled ?>></textarea>
           </div>
           <div>
             <input type="submit" />

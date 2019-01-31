@@ -12,7 +12,7 @@
         <link href="https://fonts.googleapis.com/css?family=Cormorant" rel="stylesheet">
         <link href="<?= $racine ?>/public/css/materialize.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/slick.css" rel="stylesheet" />
-        <link href="<?= $racine ?>/public/css/styleC.css" rel="stylesheet" />
+        <link href="<?= $racine ?>/public/css/styles.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/style-add.css" rel="stylesheet" />
     </head>
 

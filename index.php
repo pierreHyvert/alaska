@@ -83,6 +83,7 @@ if (isset($_GET['action'])) {
     elseif ($_GET['action']== 'addPost'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
+        $images = getImages();
         require('view/admin/addPostView.php');
       }
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}

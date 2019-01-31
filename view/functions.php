@@ -8,7 +8,7 @@ $racine = 'http://localhost/alaska';
 
 require ('view/lessc.inc.php');
 try {
-    lessc::ccompile('public/css/styles.less', 'public/css/style.css');
+    lessc::ccompile('public/css/styles.less', 'public/css/styles.css');
 } catch (exception $ex) {
     exit('lessc fatal error:<br />'.$ex->getMessage());
 }

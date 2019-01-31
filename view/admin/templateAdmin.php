@@ -11,11 +11,11 @@
   <link href="https://fonts.googleapis.com/css?family=Cormorant" rel="stylesheet">
   <link href="<?= $racine ?>/public/css/materialize.css" rel="stylesheet" />
   <link href="<?= $racine ?>/public/css/slick.css" rel="stylesheet" />
-  <link href="<?= $racine ?>/public/css/styleC.css" rel="stylesheet" />
+  <link href="<?= $racine ?>/public/css/styles.css" rel="stylesheet" />
   <link href="<?= $racine ?>/public/css/style-add.css" rel="stylesheet" />
 </head>
 
-<body id="<?= $page ?>">
+<body id="adminView">
   <section id="contenu" class="">
     <div class="row">
       <div class="col m10 s12 offset-m1">
@@ -26,11 +26,11 @@
           <p>&nbsp;</p>
           <p><a class="waves-effect waves-light btn col s12" href="index.php?action=addPost">Ajouter un chapitre</a></p>
           <p>&nbsp;</p>
-          <p><a class="waves-effect waves-light btn col s12"  href="index.php?action=allComments">Modération des commentaires</a></p>
+          <p><a class="waves-effect waves-light btn col s12"  href="index.php?action=allComments">Gestion commentaires</a></p>
           <p>&nbsp;</p>
-          <p><a class="waves-effect waves-light btn col s12"  href="index.php?action=allUsers">Gestion des utilisateurs</a></p>
+          <p><a class="waves-effect waves-light btn col s12"  href="index.php?action=allUsers">Gestion utilisateurs</a></p>
           <p>&nbsp;</p>
-          <p><a class="waves-effect waves-light btn col s12 orange"  href="index.php">Acueil du blog</a></p>
+          <p><a class="waves-effect waves-light btn col s12 orange"  href="index.php">Accueil du blog</a></p>
         </section>
 
         <section id="adminright" class="col m8 offset-m1 s12 z-depth-1">
@@ -42,8 +42,14 @@
   </section>
   <script src="<?= $racine ?>/public/js/jquery-3.3.1.min.js"></script>
   <script src="<?= $racine ?>/public/js/ajax.js"></script>
+  <script src="<?= $racine ?>/public/js/imgUpload.js"></script>
   <script src="<?= $racine ?>/public/js/materialize.min.js"></script>
   <script src="<?= $racine ?>/public/js/slick.min.js"></script>
   <script src="<?= $racine ?>/public/js/init.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+  </script>
 </body>
 </html>

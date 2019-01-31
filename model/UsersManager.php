@@ -27,6 +27,15 @@ class UsersManager extends Manager {
       return $user;
     }
 
+    public function getUserById($user_id){
+      $db = $this -> dbConnect();
+      $req = $db->prepare('SELECT email FROM users WHERE id = ?');
+      $req->execute(array($user_id));
+      $user = $req->fetch();
+      return $user['email'];
+    }
+
+
 
 
     public function checkBans($user_id){
@@ -69,6 +78,22 @@ class UsersManager extends Manager {
           return('unbannished');
         }
       }
+
+    public function blackList($user_email){
+      $db = $this->dbConnect();
+      $blackList = $db->prepare('SELECT * FROM blacklist WHERE bl_email = ? ');
+      $blackList->execute(array($user_email)) or die(print_r($blackList->errorInfo()));
+
+      $blState = $blackList->fetch();
+      if($blState['id']>0){
+        $remover=$db->prepare("DELETE FROM blacklist WHERE bl_email = ?");
+        $remover->execute(array($user_email)) or die(print_r($remover->errorInfo()));
+      }
+      else{
+        $adder=$db->prepare("INSERT INTO blacklist(bl_email) VALUES(?)");
+        $adder->execute(array($user_email)) or die(print_r($adder->errorInfo()));
+      }
+    }
 
 
     public function connectUser(){

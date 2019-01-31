@@ -11,7 +11,7 @@ ob_start(); ?>
         while ($data = $posts->fetch())
         {
         ?>
-        <article class="slide" id="slide1" style="background-image:url('img/slide1.jpg')">
+        <article class="slide" id="slide1" style="background-image:url('<?= htmlspecialchars($data['id_image']) ?>')">
             <div class="slide-legende ">
               <h2 class="slide-titre white-text"><a href="index.php?action=post&id=<?= htmlspecialchars($data['id']) ?>"><span class="slide-chap bleu-clair-text">Chapitre <?= htmlspecialchars($data['number_chapter']) ?> - </span><?= htmlspecialchars($data['title']) ?></a></h2>
               <p class="slide-extrait white-text"><?= htmlspecialchars($data['excerpt']) ?></p>

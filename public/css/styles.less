@@ -43,7 +43,7 @@
  }
 
 body{
-  background-color: white
+  background-color: @noir
 }
 
 h1, h2, h3{
@@ -61,6 +61,7 @@ a{
 
 p{
   text-align: justify;
+  color:white
 }
 
 ul li{
@@ -296,7 +297,7 @@ textarea{
   text-align: right
 }
 input[type=button], input[type=submit]{
-padding: 5px 10px 10px!important;
+// padding: 5px 10px 10px!important;
 }
 
 
@@ -340,4 +341,20 @@ background-color: lightgrey}
 .aUser{
 margin:10px 0 !important;
   padding: 10px
+}
+
+#thePictures{
+  display: flex; flex-direction: row; flex-wrap:  wrap; justify-content: space-between
+}
+
+#thePictures img{
+  height:150px; width:auto; border : 1px solid #ccc; margin:10px
+}
+
+#thePictures img.selectedImg{
+  border:5px solid lightgreen;
+}
+
+#imgPreview{
+  width:100%
 }
