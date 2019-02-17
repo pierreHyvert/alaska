@@ -52,7 +52,7 @@ tinymce.init({
               <label for="id_image">Image d'illustration</label><br />
               <img id="imgPreview" src="<?php if (isset($post['id_image'])){echo($post['id_image']);} else{echo("img/no-image.jpg");} ?>" />
               <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Sélectionner Image</a>
-              <input class="form-control" type="hidden" id="id_image" name="id_image"   />
+              <input class="form-control" type="hidden" id="id_image" name="id_image" value="<?php if (isset($post['id_image'])){echo($post['id_image']);} else{echo("img/no-image.jpg");} ?>"   />
             </div>
           </div>
 

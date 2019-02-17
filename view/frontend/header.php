@@ -14,6 +14,16 @@
         <link href="<?= $racine ?>/public/css/slick.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/styles.css" rel="stylesheet" />
         <link href="<?= $racine ?>/public/css/style-add.css" rel="stylesheet" />
+        <meta property="og:url"           content="<?= $racine."/".$page ?>" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="<?= $title ?>" />
+        <meta property="og:description"   content="<?= $description ?>" />
+        <?php if(isset($image)){?>
+          <meta property="og:image"         content="<?= $racine.$image ?>" />
+        <?php }else{ ?>
+          <meta property="og:image"         content="<?= $racine."/img/facebookDefault.jpg" ?>" />
+        <?php } ?>
+
     </head>
 
     <body id="<?= $page ?>">

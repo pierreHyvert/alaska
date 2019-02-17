@@ -10,7 +10,7 @@ if(isset($_FILES["file"]["type"]))
   $temporary = explode(".", $_FILES["file"]["name"]);
   $file_extension = end($temporary);
   if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
-  ) && ($_FILES["file"]["size"] < 1000000)//Approx. 100kb files can be uploaded.
+  ) && ($_FILES["file"]["size"] < 2000000)
   && in_array($file_extension, $validextensions)) {
     if ($_FILES["file"]["error"] > 0)
     {
@@ -32,7 +32,7 @@ if(isset($_FILES["file"]["type"]))
         $addImg = $imagesManager-> addImage($_FILES["file"]["name"],$_FILES["file"]["size"],$bddPath);
 
         if($addImg == true){
-      echo "<img id='newImage' src='".$bddPath."' />";    
+      echo "<img id='newImage' src='".$bddPath."' />";
         echo "<span id='success'>Image enregistrée.</span><br/>";
         echo "<br/><b>Nom du fichier :</b> " . $_FILES["file"]["name"] . "<br>";
         echo "<b>Type :</b> " . $_FILES["file"]["type"] . "<br>";

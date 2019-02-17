@@ -18,6 +18,9 @@ ob_start();
       echo('</ul></div>');
     }
   }
+  if (isset($_GET['message']) && !empty($_GET['message'])){
+    echo('<div class="missingFields"><p><b>Votre inscription a été prise en compte, vous allez recevoir un email contenant un lien de validation de votre compte utilisateur.</b></p></div>');
+  }
   ?>
 </div>
   <div class="col s4 offset-s1">

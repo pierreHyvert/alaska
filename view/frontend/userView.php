@@ -10,16 +10,18 @@ ob_start();
       <div class="row">
         <div class="col s12">
           <div class="form-group ">
-            <label for="name">Nom ou pseudonyme</label><br />
-            <input class="form-control" type="text" id="name" name="name" value="<?php if(isset($usersList['name'])){echo($usersList['name']);}?>" />
+            <h5>Nom ou pseudonyme</h5>
+            <p class="form-control bold" ><?php if(isset($usersList['name'])){echo($usersList['name']);}?></p>
+            <!-- <input class="form-control" type="text" id="name" name="name" disabled value="" /> -->
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col s12">
           <div class="form-group ">
-            <label for="name">Adresse eMail</label><br />
-            <input class="form-control" type="email" id="email" name="email" value="<?php if(isset($usersList['email'])){echo($usersList['email']);}?>" />
+            <h5>Adresse eMail</h5>
+            <p class="form-control" ><?php if(isset($usersList['email'])){echo($usersList['email']);}?></p>
+            <!-- <input class="form-control" type="email" id="email" disabled name="email" value="" /> -->
           </div>
         </div>
       </div>
@@ -52,8 +54,47 @@ ob_start();
           </div>
         </div>
       </div>
+
+
+<?php if(isset($_SESSION['connected'])) { ?>
+      <div class="row">
+        <div class="col s12">
+          <div class="form-group ">
+            <input class="btn orange" type="submit" id="leSubmit" value="Mettre à jour" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="form-group ">
+            <p class="right-align" ><a class="modal-trigger red-text right-align" href="#modal">Supprimer mon compte</a></p>
+          </div>
+        </div>
+      </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <h3>Supprimer votre compte ?</h3>
+          <p class="red-text">Attention : Pas de retour arrière possible !</p><br>
+          <br>
+          <br>
+          <form action="index.php?action=deleteUser" method="post">
+            <div class="form-group ">
+              <input type="hidden" value="<?php ?>" name="session" >
+              <input type="hidden" value="<?php if(isset($usersList['email'])){echo($usersList['email']);}?>" name="email" >
+              <input class="btn orange" type="submit" value="Supprimer mon compte" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="btn modal-close waves-effect waves-green">Annuler</a>
+        </div>
+      </div>
+
+<?php } ?>
     </form>
+
   </div>
 </div>
+
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>

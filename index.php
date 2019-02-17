@@ -2,6 +2,7 @@
 require('controller/frontend.php');
 require('controller/backend.php');
 
+
 if (isset($_GET['action'])) {
   try{
     ////////////////FRONT///////////
@@ -38,6 +39,28 @@ if (isset($_GET['action'])) {
       addUser();
     }
 
+    elseif ($_GET['action']== 'validation'){
+      if (isset($_GET['email']) && !empty($_GET['email']) ){
+        if (isset($_GET['cle']) && !empty($_GET['cle']) ){
+          $email = htmlspecialchars($_GET['email']);
+          $cle = htmlspecialchars($_GET['cle']);
+          require('controller/users.php');
+          validationUser($email, $cle);
+        }
+      }
+      else {throw new Exception('Erreur : certains paramètres de validations manquent !');}
+
+      require('view/frontend/validation.php');
+    }
+
+
+    elseif ($_GET['action']== 'editUser'){
+      require('controller/users.php');
+      editUser();
+    }
+
+
+
     elseif ($_GET['action']== 'user'){
       if (isset($_GET['user_email']) && !empty($_GET['user_email']) ){
         if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'user' ){
@@ -56,6 +79,18 @@ if (isset($_GET['action'])) {
         require('view/frontend/inscription.php');
       }
     }
+
+    elseif ($_GET['action']== 'deleteUser'){
+      if (isset($_POST['email']) && !empty($_POST['email']) ){
+        require('controller/users.php');
+          deleteUser($_POST['email']);
+      }
+      else {throw new Exception('Erreur : pas d\'utilisateur à supprimer !');}
+
+
+    }
+
+
 
     elseif ($_GET['action']== 'connexion'){
         require('controller/users.php');

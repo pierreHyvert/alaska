@@ -43,17 +43,18 @@
  }
 
 body{
-  background-color: @noir
+  background-color: white
 }
 
 h1, h2, h3{
 }
 h2 a{
-  color: @white;
+  color: @noir;
 }
 
 h3{
-  font-size: 2rem
+  font-size: 2rem;
+  color:@bleuclair
 }
 
 a{
@@ -61,7 +62,7 @@ a{
 
 p{
   text-align: justify;
-  color:white
+  color:@noir
 }
 
 ul li{
@@ -128,7 +129,8 @@ nav{
 /****** Slider ****/
 
 #slider{
-  width:100%; margin: auto
+  width:100%; margin: auto;
+      cursor:grab;
 }
 
 .slide{
@@ -190,18 +192,20 @@ p.slide-extrait{
       background-color: transparent;
   border: none;
   width:20px;
-  background-image: url('../../img/dot-bleu.png');
-
+  //background-image: url('../../img/dot-bleu.png');
 }
+
 .slick-dots button{
       background-color: transparent;
   border: none;
-  color:transparent
-
+  color:@bleuclair;
+  font-weight: bold;
+      cursor:cell;
 }
 .slick-arrow{
   background-color: transparent;
-  border: none
+  border: none;
+      cursor:cell;
 }
 
 .nbreLikes{
@@ -357,4 +361,11 @@ margin:10px 0 !important;
 
 #imgPreview{
   width:100%
+}
+
+/* DIVERS correctifs */
+
+.col .row {
+  margin-left: 0;
+  margin-right: 0;
 }

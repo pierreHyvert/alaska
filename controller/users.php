@@ -75,17 +75,25 @@ function addUser(){
 
   if(empty($errors)){
     $affectedLines = $userManager->addUser($name, $hashed_pass, $email);
+    $sendValidationMail = $userManager->sendValidationMail($email);
+
+
     if ($affectedLines === false) {
       die('impossible d\'ajouter l\utilisateur');
     } else {
-      header('location: index.php?action=user&user_email='.$email);
+      header('location: index.php?action=user&message=1&user_email='.$email);
     }  }
     else{
+
       require('view/frontend/inscription.php');
     }
   }
 
-
+function validationUser($email, $cle){
+  $userManager = new UsersManager();
+  $usersValidate = $userManager->validateUser($email, $cle);
+  return $usersValidate;
+}
 
 function user($email){
     $userManager = new UsersManager();
@@ -101,8 +109,8 @@ function admin($email){
 
 
 function connectUser(){
-  $userManager = new UsersManager();
-  $usersList = $userManager->getUsers();
+  $usersManager = new UsersManager();
+  $usersList = $usersManager->getUsers();
   $errorsC = array();
   $missingFieldsC = array();
   $errorsC['wrongPass'] = 'Le mot de passe est incorrect.';
@@ -124,11 +132,18 @@ function connectUser(){
             }
             $_SESSION['user_email'] = $email;
             $_SESSION['user_id'] = $user['id'];
+            $userBlackListed = $usersManager->isBlackListed($user['email']);
+            if($userBlackListed){$_SESSION['blacklisted']= true;}
+            else {
+              $_SESSION['blacklisted']= false;            }
           }
         }
       }
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'user'){
         header('location: index.php?action=user&user_email='.$email);
+      }
+      elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin'){
+        listAdminPost();
       }
       else{
         require('view/frontend/inscription.php');
@@ -139,3 +154,64 @@ function connectUser(){
       require('view/frontend/inscription.php');
     }
   }
+
+  function editUser(){
+    $userManager = new UsersManager();
+    $usersList = $userManager->getUsers();
+    $errors = array();
+    $missingFields = array();
+    $errorsC['wrongPass'] = 'wrong';
+    // Si un champ est vide, on le signale, mais on continue les controles, ce sera toujours ça de fait...
+    if (empty($_POST['oldElPasso']) OR empty($_POST['newPass']) OR empty($_POST['newPass2']))
+    {
+      $errors['emptyFields'] = '<p class="erreur">Au moins un des champs n\'est pas rempli, veuillez vérifier votre saisie.</p>';
+    }
+    // check de la répétition du pass et comparaison avec le pass déjà en bdd
+    if (isset($_POST['oldElPasso']) && !empty($_POST['oldElPasso']) && isset($_POST['newPass']) && !empty($_POST['newPass']) && isset($_POST['newPass2']) && !empty($_POST['newPass2'])){
+      while($user = $usersList->fetch()){
+        if (password_verify($_POST['oldElPasso'], $user['password'])){
+          $errorsC['wrongPass'] = '';
+          break;
+        }
+      }
+        if($errorsC['wrongPass'] == ''){
+            if ($_POST['newPass'] == $_POST['newPass2'] ){
+              $password = $_POST['newPass'];
+              if (strlen($password)<8){
+                $errors['passwordlenght'] = '<p class="erreur">Le nouveau mot de passe choisi est trop court, merci de choisir un mot de passe de 8 caractères minimum.</p>';
+              }
+              else{
+                $new_hashed_pass = password_hash($password, PASSWORD_DEFAULT);
+              }
+            }
+            else {
+              $errors['password'] = '<p class="erreur">Les deux mots de passe (nouveau) indiqués sont différents, veuillez les saisir de nouveau.</p>';
+            }
+          }
+        else{
+          $errorsC['wrongPass'] = 'Le mot de passe (ancien) est incorrect.';
+        }
+      }
+    else {
+      $errors['password'] = '<p class="erreur">Vous n\'avez pas saisi les trois mots de passe.</p>';
+      $missingFields[] = "Un ou les deux ou les 3 champs Mots de passe.";
+    }
+    if(empty($errors)){
+      $email=$_SESSION['user_email'];
+      $affectedLines = $userManager->editUser($email, $new_hashed_pass);
+      if ($affectedLines === false) {
+        die('impossible d\'ajouter l\utilisateur');
+      } else {
+        header('location: index.php?action=user&user_email='.$email);
+      }  }
+      else{
+        require('view/frontend/inscription.php');
+      }
+    }
+
+
+function deleteUser($user){
+  $usersManager = new UsersManager();
+  $usersList = $usersManager->deleteUser($user);
+  require('view/frontend/inscription.php');
+}

@@ -32,17 +32,18 @@ html {
   font-size: 100%;
 }
 body {
-  background-color: #03191F;
+  background-color: white;
 }
 h2 a {
-  color: ;
+  color: #03191F;
 }
 h3 {
   font-size: 2rem;
+  color: #2BC0EB;
 }
 p {
   text-align: justify;
-  color: white;
+  color: #03191F;
 }
 ul li {
   list-style: none;
@@ -93,6 +94,7 @@ nav {
 #slider {
   width: 100%;
   margin: auto;
+  cursor: grab;
 }
 .slide {
   height: 65vh;
@@ -146,16 +148,18 @@ p.slide-extrait {
   background-color: transparent;
   border: none;
   width: 20px;
-  background-image: url('../../img/dot-bleu.png');
 }
 .slick-dots button {
   background-color: transparent;
   border: none;
-  color: transparent;
+  color: #2BC0EB;
+  font-weight: bold;
+  cursor: cell;
 }
 .slick-arrow {
   background-color: transparent;
   border: none;
+  cursor: cell;
 }
 .nbreLikes {
   color: white;
@@ -298,4 +302,8 @@ textarea {
 }
 #imgPreview {
   width: 100%;
+}
+.col .row {
+  margin-left: 0;
+  margin-right: 0;
 }
