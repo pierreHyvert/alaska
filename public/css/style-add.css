@@ -48,6 +48,19 @@ section#contenu{
     width: 85%;
 }
 
+#suppress{
+  position:fixed; width:100vw; height:100vh; top:0; left:0; display: flex; align-content: center; align-items: center; justify-content: center; 
+  background-color: rgba(0,0,0,0.5);
+}
+#suppress.modal{
+  display: none
+}
+
+#suppress .modal-content{
+  background-color: #fff; padding: 20px
+  
+}
+
 @media screen and (max-width:767px;)
 {
   footer
