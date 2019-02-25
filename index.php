@@ -14,6 +14,8 @@ if (isset($_GET['action'])) {
     elseif ($_GET['action'] == 'post') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
         post($_GET['id']);
+        // check user
+        // check ban
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }

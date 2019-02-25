@@ -15,6 +15,9 @@ class UsersManager extends Manager {
 
 
     public function sendValidationMail($email){
+
+      $urlSite = dirname($_SERVER['SERVER_PROTOCOL']) . "://" . $_SERVER['HTTP_HOST'];
+
       $cle = md5(microtime(TRUE)*100000);
       $db = $this -> dbConnect();
       $stmt = $db->prepare("UPDATE users SET val_key=:cle WHERE email like :email");
@@ -30,7 +33,7 @@ class UsersManager extends Manager {
       Pour activer votre compte, veuillez cliquer sur le lien ci dessous
       ou copier/coller dans votre navigateur internet.
 
-      http://localhost/alaska/index.php?action=validation&email='.$email.'&cle='.urlencode($cle).'
+      '$urlSite'./alaska/index.php?action=validation&email='.$email.'&cle='.urlencode($cle).'
 
       ---------------
       Ceci est un mail automatique, Merci de ne pas y répondre.';

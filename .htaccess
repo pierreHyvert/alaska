@@ -1,4 +1,4 @@
-    ErrorDocument 404 /alaska/error.php
+    ErrorDocument 404 /OC/alaska/error.php
 
   Options +FollowSymlinks
   RewriteEngine on

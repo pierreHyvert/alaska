@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php $racine = 'http://localhost/alaska'; ?>
+<?php $racine = 'http://webmetrue.fr/OC/alaska'; ?>
 
 <html>
     <head>
@@ -19,7 +19,7 @@
         <meta property="og:title"         content="<?= $title ?>" />
         <meta property="og:description"   content="<?= $description ?>" />
         <?php if(isset($image)){?>
-          <meta property="og:image"         content="<?= $racine.$image ?>" />
+          <meta property="og:image"         content="<?= $racine.$imagefb ?>" />
         <?php }else{ ?>
           <meta property="og:image"         content="<?= $racine."/img/facebookDefault.jpg" ?>" />
         <?php } ?>

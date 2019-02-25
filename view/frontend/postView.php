@@ -3,6 +3,7 @@ $title = htmlspecialchars($post_infos['title']);
 $page = 'postView';
 $description = htmlspecialchars($post_infos['excerpt']);
 $image=$post_infos['id_image'];
+$imagefb=substr($post_infos['id_image'], 1);
 $urlCourante = dirname($_SERVER['SERVER_PROTOCOL']) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 // var_dump($_SESSION['blacklisted']);
 $disabled='';
