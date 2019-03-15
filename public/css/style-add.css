@@ -61,8 +61,12 @@ section#contenu{
   
 }
 
-@media screen and (max-width:767px;)
+@media screen and (max-width:767px)
 {
+  .slick-arrow{
+    display: none
+  }
+  
   footer
   {
     position: relative; width:100%

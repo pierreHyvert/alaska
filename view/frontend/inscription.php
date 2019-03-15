@@ -23,7 +23,7 @@ ob_start();
   }
   ?>
 </div>
-  <div class="col s4 offset-s1">
+  <div class="col m4 s10 offset-s1 offset-m1">
     <h3>Inscription</h3>
     <form action="index.php?action=addUser" method="post" id="addUserForm">
       <div class="row">
@@ -69,7 +69,7 @@ ob_start();
     </form>
   </div>
 
-  <div class="col s4 offset-s2">
+  <div class="col m4 s10 offset-s1 offset-m1">
     <h3>Connexion</h3>
     <form action="index.php?action=connexion" method="post" id="connectUserForm">
       <div class="row">
