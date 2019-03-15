@@ -21,8 +21,9 @@ function listAdminPost(){
 
 function editPost() {
   if (isset($_GET['id'])){
+    $post_id = strip_tags($_GET['id']);
     $postManager = new PostManager();
-    $post = $postManager->getPostAdmin($_GET['id']);
+    $post = $postManager->getPostAdmin($post_id);
 
     $images = getImages();
 
@@ -31,24 +32,64 @@ function editPost() {
   require('view/admin/addPostView.php');
 }
 
-function addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
-    $postManager = new PostManager();
-    $affectedLines = $postManager->addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible);
-    if ($affectedLines === false) {
-        die('impossible d\'ajouter le chapitre');
-    } else {
-        header('location: index.php?action=admin');
-    }
+function addPost() {
+    if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image']) && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt'])  )
+      {
+        $visible = 'on';
+        if (empty($_POST['is_visible'])){$visible = 'off';}
+        
+        $number_chapter = strip_tags($_POST['number_chapter']) ;
+        $title = strip_tags($_POST['title']) ;
+        $author = strip_tags($_POST['author']) ;
+        $post_date = strip_tags($_POST['post_date']) ;
+        $id_image = strip_tags($_POST['id_image']) ;
+        $content = $_POST['content'] ;
+        $excerpt = strip_tags($_POST['excerpt']) ;
+        
+        $postManager = new PostManager();
+        $affectedLines = $postManager->addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $visible);
+            if ($affectedLines === false) {
+                die('impossible d\'ajouter le chapitre');
+            } else {
+                header('location: index.php?action=admin');
+            }
+      }
+      else {throw new Exception('Erreur insert : tous les champs ne sont pas remplis !');}
 }
 
 
-function updateThePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
-    $postManager = new PostManager();
-    $affectedLines = $postManager->updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible);
-    if ($affectedLines === false) {
-        die('impossible de mettre à jour le chapitre');
+function updateThePost() {
+     if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image'])
+      && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt']) )
+      {
+        $visible = 'on';
+        if (empty($_POST['is_visible'])){ $visible = 'off'; }
+        $number_chapter = strip_tags($_POST['number_chapter']) ;
+        $title = strip_tags($_POST['title']) ;
+        $author = strip_tags($_POST['author']) ;
+        $post_date = strip_tags($_POST['post_date']) ;
+        $id_image = strip_tags($_POST['id_image']) ;
+        $content = $_POST['content'] ;
+        $excerpt = strip_tags($_POST['excerpt']) ;
+         
+        $postManager = new PostManager();
+        $affectedLines = $postManager->updatePost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $visible);
+        if ($affectedLines === false) {
+            die('impossible de mettre à jour le chapitre');
+        } else {
+            header('location: index.php?action=editPost&id='.$post_id);
+        }
+      }
+      else {throw new Exception('Erreur insert : tous les champs ne sont pas remplis !');}
+}
+
+function deletePost($post_id){
+    $postManager = new PostManager();  
+    $deleted = $postManager->deletePost($post_id);
+    if ($deleted === false) {
+        die('erreur lors de la suppression du chapitre');
     } else {
-        header('location: index.php?action=editPost&id='.$post_id);
+        header('location: index.php?action=admin');
     }
 }
 
@@ -64,7 +105,6 @@ function deleteComment($comment_id){
 }
 
 
-
 function getUsers(){
   $usersManager = new UsersManager();
   $users = $usersManager->getUsers();
@@ -78,12 +118,3 @@ function getImages(){
   return $images;
 }
 
-  // function updateThePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
-  //     $postManager = new PostManager();
-  //     $affectedLines = $postManager->updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible);
-  //     if ($affectedLines === false) {
-  //         die('impossible de mettre à jour le chapitre');
-  //     } else {
-  //         header('location: index.php?action=editPost&id='.$post_id);
-  //     }
-  // }

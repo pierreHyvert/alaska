@@ -1,4 +1,4 @@
 <?php
-header("Location: http://www.webmetrue.com/alaska");
+header("Location: http://www.alaska.webmetrue.com");
 exit;
 ?>

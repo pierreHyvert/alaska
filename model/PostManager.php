@@ -79,7 +79,7 @@ class PostManager extends Manager{
           'content' => $content,
           'excerpt' => $excerpt,
           'is_visible' => $is_visible
-        )) or die(print_r($post->errorInfo())); ;
+        )) or die(print_r($post->errorInfo()));
 
         return $affectedLines;
     }
@@ -102,22 +102,6 @@ class PostManager extends Manager{
         return $affectedLines;
     }
 
-   //  public function updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $is_visible) {
-   //     $db = $this -> dbConnect();
-   //     $post = $db->prepare('UPDATE chapters SET number_chapter = :number_chapter, title = :title, author = :author, post_date = :post_date, id_image = :id_image, content = :content, excerpt = :excerpt, is_visible = :is_visible WHERE id = :id');
-   //     $affectedLines = $post-> execute(array(
-   //       'number_chapter' => $number_chapter,
-   //       'title' => $title,
-   //       'author' => $author,
-   //       'post_date' => $post_date,
-   //       'id_image' => $id_image,
-   //       'content' => $content,
-   //       'excerpt' => $excerpt,
-   //       'is_visible' => $is_visible,
-   //       'id' => $post_id
-   //     ));
-   //     return $affectedLines;
-   // }
 
     public function likePost($post_id, $likes){
         $db = $this->dbConnect();

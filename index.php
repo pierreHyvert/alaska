@@ -4,44 +4,38 @@ require('controller/backend.php');
 
 
 if (isset($_GET['action'])) {
+    $action=strip_tags($_GET['action']);
   try{
     ////////////////FRONT///////////
 
-    if ($_GET['action'] == 'listPosts') {
+    if ($action == 'listPosts') {
       listPosts();
     }
 
-    elseif ($_GET['action'] == 'post') {
+    elseif ($action == 'post') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
-        post($_GET['id']);
-        // check user
-        // check ban
+        $post_id = strip_tags($_GET['id']);
+        post($post_id);
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }
 
-    elseif ($_GET['action']== 'addComment'){
-      if (isset($_GET['id']) && $_GET['id'] > 0) {
-        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-          addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-        }
-        else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
-      }
-      else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
+    elseif ($action== 'addComment'){
+      addComment();     
     }
 
     //////// USERS //////
 
-    elseif ($_GET['action']== 'inscription'){
+    elseif ($action == 'inscription'){
       require('view/frontend/inscription.php');
     }
 
-    elseif ($_GET['action']== 'addUser'){
+    elseif ($action == 'addUser'){
       require('controller/users.php');
       addUser();
     }
 
-    elseif ($_GET['action']== 'validation'){
+    elseif ($action == 'validation'){
       if (isset($_GET['email']) && !empty($_GET['email']) ){
         if (isset($_GET['cle']) && !empty($_GET['cle']) ){
           $email = htmlspecialchars($_GET['email']);
@@ -56,17 +50,17 @@ if (isset($_GET['action'])) {
     }
 
 
-    elseif ($_GET['action']== 'editUser'){
+    elseif ($action == 'editUser'){
       require('controller/users.php');
       editUser();
     }
 
 
 
-    elseif ($_GET['action']== 'user'){
+    elseif ($action == 'user'){
       if (isset($_GET['user_email']) && !empty($_GET['user_email']) ){
         if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'user' ){
-          $email= $_GET['user_email'];
+          $email= strip_tags($_GET['user_email']);
           require('controller/users.php');
           user($email);
         }
@@ -82,24 +76,23 @@ if (isset($_GET['action'])) {
       }
     }
 
-    elseif ($_GET['action']== 'deleteUser'){
+    elseif ($action == 'deleteUser'){
       if (isset($_POST['email']) && !empty($_POST['email']) ){
         require('controller/users.php');
-          deleteUser($_POST['email']);
+          $email = strip_tags($_POST['email']);
+          deleteUser($email);
       }
       else {throw new Exception('Erreur : pas d\'utilisateur à supprimer !');}
-
-
     }
 
 
 
-    elseif ($_GET['action']== 'connexion'){
+    elseif ($action == 'connexion'){
         require('controller/users.php');
         connectUser();
     }
 
-    elseif ($_GET['action']== 'deconnexion'){
+    elseif ($action == 'deconnexion'){
       detruireSession();
       listPosts();
     }
@@ -109,7 +102,7 @@ if (isset($_GET['action'])) {
 
     ////////////ADMIN///////////////
 
-    elseif ($_GET['action']== 'admin'){
+    elseif ($action == 'admin'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
         listAdminPost();
@@ -117,7 +110,7 @@ if (isset($_GET['action'])) {
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}
     }
 
-    elseif ($_GET['action']== 'addPost'){
+    elseif ($action == 'addPost'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
         $images = getImages();
@@ -126,53 +119,40 @@ if (isset($_GET['action'])) {
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}
     }
 
-    elseif ($_GET['action'] == 'editPost') {
+    elseif ($action == 'editPost') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
         editPost();
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }
 
-    elseif ($_GET['action']== 'insertPost'){
-
-      if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image']) && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt'])  )
-      {
-        if (empty($_POST['is_visible'])){$visible = 'off';};
-        addPost($_POST['number_chapter'], $_POST['title'], $_POST['author'], $_POST['post_date'], $_POST['id_image'], $_POST['content'], $_POST['excerpt'], $visible);
-      }
-      else {throw new Exception('Erreur insert : tous les champs ne sont pas remplis !');}
+    elseif ($action == 'insertPost'){
+      addPost();
     }
 
-    elseif ($_GET['action']== 'updatePost'){
-      if (!empty($_POST['number_chapter']) && !empty($_POST['title']) && !empty($_POST['post_date']) && !empty($_POST['id_image'])
-      && !empty($_POST['author']) && !empty($_POST['content']) && !empty($_POST['excerpt']) )
-      {
-        $visible = 'on';
-        if (empty($_POST['is_visible'])){
-          $visible = 'off';
-        }
-        updateThePost($_GET['id'], $_POST['number_chapter'], $_POST['title'], $_POST['author'], $_POST['post_date'], $_POST['id_image'], $_POST['content'], $_POST['excerpt'], $visible);
-      }
-      else { var_dump($_POST);
-        $visible = 'on';
-        if (empty($_POST['is_visible'])){
-          $visible = 'off';
-        }
-        updateThePost($_GET['id'], $_POST['number_chapter'], $_POST['title'], $_POST['author'], $_POST['post_date'], $_POST['id_image'], $_POST['content'], $_POST['excerpt'], $visible);      }
-      }
-
-    elseif ($_GET['action']== 'allComments'){
+    elseif ($action == 'updatePost'){
+        updateThePost();
+    }
+      
+      
+    elseif ($action == 'deletePost'){
+        $post_id = strip_tags($_GET['post_id']);
+        deletePost($post_id);
+    }     
+      
+    elseif ($action == 'allComments'){
       allComments();
     }
 
-    elseif ($_GET['action']== 'deleteComment'){
+    elseif ($action == 'deleteComment'){
       if($_GET['comment_id'] && ($_GET['step'] =="valid")){
-        deleteComment($_GET['comment_id']);
+        $comment_id= strip_tags($_GET['comment_id']);
+        deleteComment($comment_id);
       }
       allComments();
     }
 
-    elseif ($_GET['action']== 'allUsers'){
+    elseif ($action == 'allUsers'){
       getUsers();
     }
 
@@ -187,6 +167,7 @@ if (isset($_GET['action'])) {
   }
 }
 else {
+
   listPosts();
 
 }

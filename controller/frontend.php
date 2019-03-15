@@ -32,12 +32,22 @@ function post($post_id) {
 
 
 //// COMMENTS /////
-function addComment($postId, $author, $comment) {
-    $commentManager = new CommentManager();
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
-    if ($affectedLines === false) {
-        die('impossible d\'ajouter le commentaire');
-    } else {
-        header('location: index.php?action=post&id=' . $postId);
-    }
+function addComment() {
+     if (isset($_GET['id']) && $_GET['id'] > 0) {
+        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+            $post_id = strip_tags($_GET['id']);
+            $comment_author = strip_tags($_POST['author']);
+            $comment = strip_tags($_POST['comment']);
+            
+            $commentManager = new CommentManager();
+            $affectedLines = $commentManager->postComment($post_id, $comment_author, $comment);
+            if ($affectedLines === false) {
+                die('impossible d\'ajouter le commentaire');
+            } else {
+                header('location: index.php?action=post&id=' . $post_id);
+            }
+        }
+        else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
+      }
+      else {throw new Exception('Erreur : aucun identifiant de billet envoyé');} 
 }

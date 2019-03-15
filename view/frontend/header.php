@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php $racine = 'http://webmetrue.fr/OC/alaska'; ?>
+<?php $racine = 'http://alaska.webmetrue.fr'; ?>
 
 <html>
     <head>
@@ -31,7 +31,7 @@
   <div class="nav-wrapper valign-wrapper">
     <a id="logo-container" class="bleu-fonce-text" href="index.php" class="brand-logo"><img src="img/logo.jpg" alt="Logo du blog"/></a>
     <div id="titre" class="">
-      <h1 class="bleu-fonce-text ">ALLEZ SIMPLE POUR L'ALASKA</h1>
+      <h1 class="bleu-fonce-text ">Allez simple pour l'Alaska</h1>
       <p id="sous-titre" class="bleu-fonce-text hide-on-med-and-down">Un roman publié en ligne chapitre par chapitre</p>
     </div>
 

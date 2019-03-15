@@ -1,8 +1,9 @@
 <?php
+
 require_once('model/UsersManager.php');
 require_once('model/Globals.php');
 require_once('view/functions.php');
-require_once('nogit/salaison.php');
+// require_once('nogit/salaison.php');
 use \Alaska\Model\UsersManager;
 use \Alaska\Model\Globals;
 

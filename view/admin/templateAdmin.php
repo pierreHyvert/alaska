@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php $racine = 'http://localhost/alaska';?>
+<?php $racine = 'http://alaska.webmetrue.fr'; ?>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>

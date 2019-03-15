@@ -6,7 +6,7 @@ input.liker, input.flagger, input.bannisher{
 
 
 nav {
-  position: fixed; 
+  position: fixed; z-index: 1000
 }
 
 .postHeader{
@@ -69,3 +69,14 @@ section#contenu{
   }
 
 }
+
+.contenu img{
+  width:100%;
+  padding: 0 0 50px 0;
+}
+
+.contenu{padding-bottom: 50px}
+
+.alert{background-color:coral;}
+.information{background-color:teal;}
+.alert p, .information p {color: white}
