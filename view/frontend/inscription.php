@@ -10,7 +10,7 @@ ob_start();
   if (isset($errors) && !empty($errors)){
     echo ('<p class="erreur">Il y a une ou plusieurs erreurs dans le formulaire, merci de le remplir de nouveau.</p>');
     if(isset($errors['emptyFields'])){echo($errors['emptyFields']);}
-    if(isset($missingFields)){
+    if(isset($missingFields && !empty($missingFields))){
       echo('<div class="missingFields"><p><b>Champs manquants :</b></p><ul>');
       foreach ($missingFields as $field){
         echo('<li>'.$field.'</li>');
