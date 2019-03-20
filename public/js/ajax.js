@@ -30,14 +30,14 @@ function flagRequest(callback, commentID, userID, sens) {
 }
 
 function flag(sData, commentID, userID) {
-	$('.flagger').remove();
+	$('.flagger#'+commentID).remove();
 	if (sData == 'unflagged'){
 		var button = '<input type="button" class="flagger button" id="'+ commentID + '" onclick="flagRequest(flag,'+ commentID + ','+ userID + ',\'up\');" title="signaler ce commentaire comme offenssant ou innapproprié" value="Signaler" />';
-		$('#flagger').html(button);
+		$('#comment-'+commentID+' #flagger').html(button);
 	}
 	else{
 		var button = '<input type="button" class="flagger button" id="'+ commentID + '" onclick="flagRequest(flag,'+ commentID + ','+ userID + ',\'down\');" title="vous avez signalé ce commentaire, vous pouvez annuler ce signalement" value="Annuler le signalement" />';
-		$('#flagger').html(button);
+		$('#comment-'+commentID+' #flagger').html(button);
 	}
 }
 

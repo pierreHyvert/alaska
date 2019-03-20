@@ -45,7 +45,6 @@ ob_start(); ?>
                         js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));
-
                 </script>
 
                 <!-- Your share button code -->
@@ -60,8 +59,8 @@ ob_start(); ?>
                 <div class="commentaires">
                     <h3>Commentaires</h3>
                     <?php
-    
-if(!isset($_SESSION['connected'])){ 
+
+if(!isset($_SESSION['connected'])){
           ?>
                     <div class="aComment information"><p>Vous devez être connecté pour commenter. <a href="index.php?action=user" title="accéder au formulaire de connexion"> Se connecter</a></p></div>
                         <?php
@@ -83,26 +82,29 @@ elseif($_SESSION['connected'] AND ($_SESSION['blacklisted'] == false)){ ?>
                                     <input type="submit" />
                                 </div>
                             </form>
-                            <?php 
-} 
+                            <?php
+}
         while ($comment = $comments->fetch())
         {
           ?>
-                            <div class="aComment">
-                                <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le
-                                    <?= $comment['comment_date_fr'] ?>
-                                </p>
-                                <p>
-                                    <?= nl2br(htmlspecialchars($comment['content'])) ?>
-                                </p>
-                                <div id="flagger">
-                                    <?php if ($_SESSION['user_id']){
-                $flagButton = flagger($comment['id'], $_SESSION['user_id']);
-                echo $flagButton;
-              } ?>
-                                </div>
-                            </div>
-                            <?php
+            <div class="aComment" id="comment-<?= $comment['id'] ?>">
+                <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le
+                    <?= $comment['comment_date_fr'] ?>
+                </p>
+                <p>
+                    <?= nl2br(htmlspecialchars($comment['content'])) ?>
+                </p>
+                <?php if($_SESSION['connected'] AND ($_SESSION['blacklisted'] == false)){ ?>
+                <div id="flagger">
+                    <?php if ($_SESSION['user_id']){
+                      $flagButton = flagger($comment['id'], $_SESSION['user_id']);
+                      echo $flagButton;
+                      }
+                    ?>
+                </div>
+              <?php } ?>
+            </div>
+            <?php
         }
         $comments->closeCursor();
         ?>
