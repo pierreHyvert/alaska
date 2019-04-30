@@ -3,7 +3,6 @@
 require_once('model/UsersManager.php');
 require_once('model/Globals.php');
 require_once('view/functions.php');
-// require_once('nogit/salaison.php');
 use \Alaska\Model\UsersManager;
 use \Alaska\Model\Globals;
 
@@ -204,7 +203,8 @@ function connectUser(){
         die('impossible d\'ajouter l\utilisateur');
       } else {
         header('location: index.php?action=user&user_email='.$email);
-      }  }
+      }
+    }
       else{
         require('view/frontend/inscription.php');
       }
@@ -215,4 +215,47 @@ function deleteUser($user){
   $usersManager = new UsersManager();
   $usersList = $usersManager->deleteUser($user);
   require('view/frontend/inscription.php');
+}
+
+
+function passwordReset($email){
+  $usersManager = new UsersManager();
+  $user = $usersManager->passwordResetMail($email);
+
+}
+
+function checkResetKey($email, $cle)
+{
+  $usersManager = new UsersManager();
+  $usersList = $usersManager->checkResetKey($email, $cle);
+}
+
+function resetTheUserPass()
+{
+  $email = $_SESSION['userValidEmail'];
+  $password1 = $_POST['password1'];
+  $password2 = $_POST['password2'];
+
+  if (isset($_POST['password1']) && !empty($_POST['password1']) && isset($_POST['password2']) && !empty($_POST['password2'])){
+    if ($_POST['password1'] == $_POST['password2'] ){
+      $password1 = $_POST['password1'];
+      if (strlen($password1)<8){
+        $errors['passwordlenght'] = '<p class="erreur">Ce mot de passe est trop court, merci de choisir un mot de passe de 8 caractères minimum.</p>';
+      }
+      if (isset($email) && !empty($email)){
+          $hashed_pass = password_hash($password1, PASSWORD_DEFAULT);
+          $usersManager = new UsersManager();
+          $usersList = $usersManager->updatethePass($email, $hashed_pass);
+      }
+    }
+    else {
+      $errors['password'] = '<p class="erreur">Les deux mots de passe indiqués sont différents, veuillez les saisir de nouveau.</p>';
+    }
+  }
+  else {
+    $errors['password'] = '<p class="erreur">Vous n\'avez pas saisi les deux mots de passe.</p>';
+    $missingFields[] = "Un ou les deux champs Mots de passe.";
+  }
+
+
 }

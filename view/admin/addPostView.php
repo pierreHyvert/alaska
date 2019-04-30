@@ -16,6 +16,7 @@ tinymce.init({
     <div class="section no-pad-bot s10 offset-s1" id="index-banner">
       <h3 class="bleu-fonce-text">Ajouter ou modifier un chapitre</h2>
         <form action="index.php?action=<?php if (isset($post)){echo('updatePost&id='.$post['id']);}else{echo('insertPost');} ?>" method="post" id="addPostForm">
+            <input type="hidden" name="postID" value="<?php if (isset($post['id'])){echo($post['id']);} ?>" />
           <div class="row">
             <div class="col s12">
               <div class="form-group ">
@@ -46,6 +47,9 @@ tinymce.init({
             <div class="col s12 m8">
               <label for="excerpt">Accroche (pour accueil et métas)</label><br />
               <textarea class="form-control" id="excerpt" name="excerpt"><?php if (isset($post['excerpt'])){echo($post['excerpt']);} ?></textarea>
+              <label for="likes">Nombre de likes : <?php if (isset($post['likes'])){echo($post['likes']);} ?> </label>
+              <input type="hidden" name="likes" value="<?php if (isset($post['likes'])){echo($post['likes']);} ?>" />
+
             </div>
             <div class="col s12 m4">
               <!-- Modal Trigger -->
@@ -73,12 +77,14 @@ tinymce.init({
             </label>
           </div>
           <div class="col m6 ">
+
             <input type="submit" value="Enregistrer" name="Enregistrer" class="btn orange right" />
           </div>
         </div>
-      </form>
+      </form><br>
+      <?php if (isset($post['id'])){ ?><a href="index.php?action=post&id=<?= $post['id']; ?>" class="btn green right" target="_blank" >Voir le chapitre</a><?php } ?>
       <?php if (isset($post)){ ?>
-        <a class="modal-trigger red-text right" href="#modal2">Supprimer le chapitre</a>
+        <a class="modal-trigger red-text left" href="#modal2">Supprimer le chapitre</a>
       <?php } ?>
 
     </div>

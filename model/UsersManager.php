@@ -15,9 +15,7 @@ class UsersManager extends Manager {
 
 
     public function sendValidationMail($email){
-
       $urlSite = "http://" . $_SERVER['HTTP_HOST'];
-
       $cle = md5(microtime(TRUE)*100000);
       $db = $this -> dbConnect();
       $stmt = $db->prepare("UPDATE users SET val_key=:cle WHERE email like :email");
@@ -62,6 +60,10 @@ class UsersManager extends Manager {
       $updateReq = $db->prepare("UPDATE users SET password = ? WHERE email like ?");
       $updateReq->execute(array($newPass,$email)) or die(print_r($updateReq->errorInfo()));
     }
+
+
+
+
 
 
     public function getUsers(){
@@ -159,9 +161,7 @@ class UsersManager extends Manager {
 
     }
 
-    // public function connectUser(){
-    //
-    // }
+
 
     public function deleteUser($email){
       $db = $this->dbConnect();
@@ -170,4 +170,55 @@ class UsersManager extends Manager {
     }
 
 
+public function passwordResetMail($email)
+{
+  $urlSite = "http://" . $_SERVER['HTTP_HOST'];
+  $cle = md5(microtime(TRUE)*100000);
+  $db = $this -> dbConnect();
+  $stmt = $db->prepare("UPDATE users SET reset_key=:cle WHERE email like :email");
+  $stmt->bindParam(':cle', $cle);
+  $stmt->bindParam(':email', $email);
+  $stmt->execute();
+  $destinataire = $email;
+  $sujet = "Alaska - Réinitialisation de votre mot de passe" ;
+  $entete = "From: admin@alaska.com" ;
+
+  $message = 'Bonjour,
+
+Vous avez effectué une demande de réinitialisation de votre mot de passe sur le blog Alaska.
+Si vous avez bien effectué cette demande, merci de cliquer sur le lien ci-dessous, vous serez invité à définir un nouveau mot de passe.
+
+  '.$urlSite.'/index.php?action=reset&email='.$email.'&cle='.urlencode($cle).'
+
+  ---------------
+  Ceci est un mail automatique, Merci de ne pas y répondre.';
+  mail($destinataire, $sujet, $message, $entete) ;
+  }
+
+
+  public function checkResetKey($email, $cle){
+    $db = $this -> dbConnect();
+    $req = $db->prepare('SELECT * FROM users WHERE email = ? ');
+    $req->execute(array($email));
+    $data = $req->fetch();
+      if($data['reset_key'] == $cle){
+       $_SESSION['userValidEmail'] = $email;
+       require('view/frontend/resetPassword.php');
+      }
+      else{
+        throw new \Exception("Clé de réinitialisation incorrecte");
+      }
+    }
+
+
+public function updatethePass($email, $hashed_pass)
+{
+  $db = $this -> dbConnect();
+  $stmt = $db->prepare("UPDATE users SET password=:password WHERE email like :email");
+  $stmt->bindParam(':password', $hashed_pass);
+  $stmt->bindParam(':email', $email);
+  $stmt->execute();
+  require('view/frontend/passwordReseted.php');
+
+}
 }

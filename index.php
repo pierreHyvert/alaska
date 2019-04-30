@@ -21,7 +21,7 @@ if (isset($_GET['action'])) {
     }
 
     elseif ($action== 'addComment'){
-      addComment();     
+      addComment();
     }
 
     //////// USERS //////
@@ -45,17 +45,13 @@ if (isset($_GET['action'])) {
         }
       }
       else {throw new Exception('Erreur : certains paramètres de validations manquent !');}
-
       require('view/frontend/validation.php');
     }
-
 
     elseif ($action == 'editUser'){
       require('controller/users.php');
       editUser();
     }
-
-
 
     elseif ($action == 'user'){
       if (isset($_GET['user_email']) && !empty($_GET['user_email']) ){
@@ -85,8 +81,6 @@ if (isset($_GET['action'])) {
       else {throw new Exception('Erreur : pas d\'utilisateur à supprimer !');}
     }
 
-
-
     elseif ($action == 'connexion'){
         require('controller/users.php');
         connectUser();
@@ -97,7 +91,29 @@ if (isset($_GET['action'])) {
       listPosts();
     }
 
+    elseif ($action == 'passwordReset'){
+      require('controller/users.php');
+      passwordReset(strip_tags($_POST['email']));
+      $reset = true;
+      require('view/frontend/inscription.php');
+    }
 
+    elseif ($action == 'reset'){
+      if (isset($_GET['email']) && !empty($_GET['email']) ){
+        if (isset($_GET['cle']) && !empty($_GET['cle']) ){
+          $email = htmlspecialchars($_GET['email']);
+          $cle = $_GET['cle'];
+          require('controller/users.php');
+          checkResetKey($email, $cle);
+        }
+      }
+      else {throw new Exception('Erreur : certains paramètres de réinitialisation manquent !');}
+    }
+
+    elseif ($action == 'resetingThePass') {
+      require('controller/users.php');
+      resetTheUserPass();
+    }
 
 
     ////////////ADMIN///////////////
@@ -133,13 +149,12 @@ if (isset($_GET['action'])) {
     elseif ($action == 'updatePost'){
         updateThePost();
     }
-      
-      
+
     elseif ($action == 'deletePost'){
         $post_id = strip_tags($_GET['post_id']);
         deletePost($post_id);
-    }     
-      
+    }
+
     elseif ($action == 'allComments'){
       allComments();
     }
@@ -156,18 +171,11 @@ if (isset($_GET['action'])) {
       getUsers();
     }
 
-
-
-    ///
-
-
   }
   catch (Exception $e){
     echo 'Erreur : '. $e->getMessage().'<br><a href="index.php">Retour</a>';
   }
 }
 else {
-
   listPosts();
-
 }

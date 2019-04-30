@@ -10,7 +10,7 @@ ob_start();
   if (isset($errors) && !empty($errors)){
     echo ('<p class="erreur">Il y a une ou plusieurs erreurs dans le formulaire, merci de le remplir de nouveau.</p>');
     if(isset($errors['emptyFields'])){echo($errors['emptyFields']);}
-    if(isset($missingFields && !empty($missingFields))){
+    if(isset($missingFields) && !empty($missingFields)){
       echo('<div class="missingFields"><p><b>Champs manquants :</b></p><ul>');
       foreach ($missingFields as $field){
         echo('<li>'.$field.'</li>');
@@ -20,6 +20,9 @@ ob_start();
   }
   if (isset($_GET['message']) && !empty($_GET['message'])){
     echo('<div class="missingFields"><p><b>Votre inscription a été prise en compte, vous allez recevoir un email contenant un lien de validation de votre compte utilisateur.</b></p></div>');
+  }
+  if (isset($reset)){
+        echo('<div class="missingFields"><p><b>Votre demande de réinitialisation de mot de passe a été prise en compte, vous allez recevoir un email contenant un lien pour effectuer la réinitialisation.</b></p></div>');
   }
   ?>
 </div>
@@ -92,10 +95,33 @@ ob_start();
         <input type="submit" value="Se connecter" name="Enregistrer" class="btn orange monBtn" />
       </div>
     </form>
+    <a class="modal-trigger red-text right" href="#modal1">Mot de passe perdu ?</a>
   </div>
 </div>
 
 
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h3>Mot de passe perdu ?</h3>
+
+    <p>Veuillez indiquer l'adresse email que vous avez utilisé lors de votre inscription</p>
+    <br>
+    <br>
+    <form action="index.php?action=passwordReset" method="post">
+      <input name="email" type="email" placeholder="adresse email"/>
+      <input type="submit" value="Réinitialiser" />
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="btn modal-close waves-effect waves-green">Annuler</a>
+  </div>
+</div>
+
 
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>
+<script>
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+  </script>

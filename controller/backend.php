@@ -37,7 +37,7 @@ function addPost() {
       {
         $visible = 'on';
         if (empty($_POST['is_visible'])){$visible = 'off';}
-        
+
         $number_chapter = strip_tags($_POST['number_chapter']) ;
         $title = strip_tags($_POST['title']) ;
         $author = strip_tags($_POST['author']) ;
@@ -45,7 +45,7 @@ function addPost() {
         $id_image = strip_tags($_POST['id_image']) ;
         $content = $_POST['content'] ;
         $excerpt = strip_tags($_POST['excerpt']) ;
-        
+
         $postManager = new PostManager();
         $affectedLines = $postManager->addPost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $visible);
             if ($affectedLines === false) {
@@ -64,6 +64,7 @@ function updateThePost() {
       {
         $visible = 'on';
         if (empty($_POST['is_visible'])){ $visible = 'off'; }
+        $post_id = strip_tags($_POST['postID']);
         $number_chapter = strip_tags($_POST['number_chapter']) ;
         $title = strip_tags($_POST['title']) ;
         $author = strip_tags($_POST['author']) ;
@@ -71,9 +72,10 @@ function updateThePost() {
         $id_image = strip_tags($_POST['id_image']) ;
         $content = $_POST['content'] ;
         $excerpt = strip_tags($_POST['excerpt']) ;
-         
+        $likes = strip_tags($_POST['likes']) ;
+
         $postManager = new PostManager();
-        $affectedLines = $postManager->updatePost($number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $visible);
+        $affectedLines = $postManager->updatePost($post_id, $number_chapter, $title, $author, $post_date, $id_image, $content, $excerpt, $visible);
         if ($affectedLines === false) {
             die('impossible de mettre à jour le chapitre');
         } else {
@@ -84,7 +86,7 @@ function updateThePost() {
 }
 
 function deletePost($post_id){
-    $postManager = new PostManager();  
+    $postManager = new PostManager();
     $deleted = $postManager->deletePost($post_id);
     if ($deleted === false) {
         die('erreur lors de la suppression du chapitre');
@@ -117,4 +119,3 @@ function getImages(){
   $images = $imagesManager->getAllImages();
   return $images;
 }
-
