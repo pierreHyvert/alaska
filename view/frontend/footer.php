@@ -2,7 +2,7 @@
 <!-- Ferme la section Page -->
 <footer class="page-footer bleuclair">
   <div class="footer-copyright">
-    <div class="container">&copy; Jean Forteroche -  <a class="white-text" href="index.php?page=mentions" title="mentions légales">Mentions légales</a>
+    <div class="container">&copy; Jean Forteroche -  <a class="white-text" href="index.php?action=mentions" title="mentions légales">Mentions légales</a>
     </div>
   </div>
 </footer>

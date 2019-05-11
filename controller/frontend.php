@@ -38,7 +38,7 @@ function addComment() {
             $post_id = strip_tags($_GET['id']);
             $comment_author = strip_tags($_POST['author']);
             $comment = strip_tags($_POST['comment']);
-            
+
             $commentManager = new CommentManager();
             $affectedLines = $commentManager->postComment($post_id, $comment_author, $comment);
             if ($affectedLines === false) {
@@ -49,5 +49,12 @@ function addComment() {
         }
         else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
       }
-      else {throw new Exception('Erreur : aucun identifiant de billet envoyé');} 
+      else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
+}
+
+
+//// DIVERS ////
+
+function mentions(){
+  require('view/frontend/legal.php');
 }

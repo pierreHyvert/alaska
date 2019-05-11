@@ -171,6 +171,10 @@ if (isset($_GET['action'])) {
       getUsers();
     }
 
+    elseif ($action == 'mentions'){
+      mentions();
+    }
+
   }
   catch (Exception $e){
     echo 'Erreur : '. $e->getMessage().'<br><a href="index.php">Retour</a>';
