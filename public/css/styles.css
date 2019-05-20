@@ -220,6 +220,9 @@ p.slide-extrait {
 .contenu {
   text-align: justify;
 }
+.contenu p {
+  font-family: 'Cormorant', serif;
+}
 .commentaires {
   padding: 0px;
   margin: 60px 0;
