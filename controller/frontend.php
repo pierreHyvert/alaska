@@ -12,49 +12,45 @@ use \Alaska\Model\Globals;
 if (!isset($_SESSION['user_id'])){$_SESSION['user_id']='';}
 
 
+class Frontend {
+  ////// POSTS ////
+  public function listPosts() {
+      $postManager = new PostManager();
+      $posts = $postManager->getVisiblePosts();
+      require('view/frontend/accueil.php');
+  }
+  public function post($post_id) {
+      $postManager = new PostManager();
+      $posts = $postManager->getVisiblePosts();
+      $post_infos = $postManager->getPostInfos($posts, $post_id);
+      $commentManager = new CommentManager();
+      $comments = $commentManager->getComments($post_id);
+      require('view/frontend/postView.php');
+  }
 
-////// POSTS ////
-function listPosts() {
-    $postManager = new PostManager();
-    $posts = $postManager->getVisiblePosts();
-    require('view/frontend/accueil.php');
-}
+  //// COMMENTS /////
+  function addComment() {
+       if (isset($_GET['id']) && $_GET['id'] > 0) {
+          if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+              $post_id = strip_tags($_GET['id']);
+              $comment_author = strip_tags($_POST['author']);
+              $comment = strip_tags($_POST['comment']);
 
-
-function post($post_id) {
-    $postManager = new PostManager();
-    $posts = $postManager->getVisiblePosts();
-    $post_infos = $postManager->getPostInfos($posts, $post_id);
-    $commentManager = new CommentManager();
-    $comments = $commentManager->getComments($post_id);
-    require('view/frontend/postView.php');
-}
-
-
-//// COMMENTS /////
-function addComment() {
-     if (isset($_GET['id']) && $_GET['id'] > 0) {
-        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-            $post_id = strip_tags($_GET['id']);
-            $comment_author = strip_tags($_POST['author']);
-            $comment = strip_tags($_POST['comment']);
-
-            $commentManager = new CommentManager();
-            $affectedLines = $commentManager->postComment($post_id, $comment_author, $comment);
-            if ($affectedLines === false) {
-                die('impossible d\'ajouter le commentaire');
-            } else {
-                header('location: index.php?action=post&id=' . $post_id);
-            }
+              $commentManager = new CommentManager();
+              $affectedLines = $commentManager->postComment($post_id, $comment_author, $comment);
+              if ($affectedLines === false) {
+                  die('impossible d\'ajouter le commentaire');
+              } else {
+                  header('location: index.php?action=post&id=' . $post_id);
+              }
+          }
+          else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
         }
-        else {throw new Exception('Erreur : tous les champs ne sont pas remplis !');}
-      }
-      else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
-}
+        else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
+  }
 
-
-//// DIVERS ////
-
-function mentions(){
-  require('view/frontend/legal.php');
+  //// DIVERS ////
+  function mentions(){
+    require('view/frontend/legal.php');
+  }
 }

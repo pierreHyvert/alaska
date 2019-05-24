@@ -6,24 +6,27 @@ require('controller/backend.php');
 
 
 if (isset($_GET['action'])) {
-    $action=strip_tags($_GET['action']);
+  $action=strip_tags($_GET['action']);
   try{
     ////////////////FRONT///////////
+    $fe = new Frontend();
+    $be = new Backend();
+    $users = new Users();
 
     if ($action == 'listPosts') {
-      listPosts();
+      $fe->listPosts();
     }
 
     elseif ($action == 'post') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
         $post_id = strip_tags($_GET['id']);
-        post($post_id);
+        $fe->post($post_id);
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }
 
     elseif ($action== 'addComment'){
-      addComment();
+      $fe->addComment();
     }
 
     //////// USERS //////
@@ -34,7 +37,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'addUser'){
       require('controller/users.php');
-      addUser();
+      $users->addUser();
     }
 
     elseif ($action == 'validation'){
@@ -43,7 +46,7 @@ if (isset($_GET['action'])) {
           $email = htmlspecialchars($_GET['email']);
           $cle = htmlspecialchars($_GET['cle']);
           require('controller/users.php');
-          validationUser($email, $cle);
+          $users->validationUser($email, $cle);
         }
       }
       else {throw new Exception('Erreur : certains paramètres de validations manquent !');}
@@ -52,7 +55,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'editUser'){
       require('controller/users.php');
-      editUser();
+      $users->editUser();
     }
 
     elseif ($action == 'user'){
@@ -60,10 +63,10 @@ if (isset($_GET['action'])) {
         if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'user' ){
           $email= strip_tags($_GET['user_email']);
           require('controller/users.php');
-          user($email);
+          $users->user($email);
         }
         elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin' ){
-          listAdminPost();
+          $be->listAdminPost();
         }
         else {
           require('view/frontend/inscription.php');
@@ -77,25 +80,25 @@ if (isset($_GET['action'])) {
     elseif ($action == 'deleteUser'){
       if (isset($_POST['email']) && !empty($_POST['email']) ){
         require('controller/users.php');
-          $email = strip_tags($_POST['email']);
-          deleteUser($email);
+        $email = strip_tags($_POST['email']);
+        $users->deleteUser($email);
       }
       else {throw new Exception('Erreur : pas d\'utilisateur à supprimer !');}
     }
 
     elseif ($action == 'connexion'){
-        require('controller/users.php');
-        connectUser();
+      require('controller/users.php');
+      $users->connectUser();
     }
 
     elseif ($action == 'deconnexion'){
       detruireSession();
-      listPosts();
+      $fe->listPosts();
     }
 
     elseif ($action == 'passwordReset'){
       require('controller/users.php');
-      passwordReset(strip_tags($_POST['email']));
+      $users->passwordReset(strip_tags($_POST['email']));
       $reset = true;
       require('view/frontend/inscription.php');
     }
@@ -106,7 +109,7 @@ if (isset($_GET['action'])) {
           $email = htmlspecialchars($_GET['email']);
           $cle = $_GET['cle'];
           require('controller/users.php');
-          checkResetKey($email, $cle);
+          $users->checkResetKey($email, $cle);
         }
       }
       else {throw new Exception('Erreur : certains paramètres de réinitialisation manquent !');}
@@ -114,7 +117,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'resetingThePass') {
       require('controller/users.php');
-      resetTheUserPass();
+      $users->resetTheUserPass();
     }
 
 
@@ -123,7 +126,7 @@ if (isset($_GET['action'])) {
     elseif ($action == 'admin'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
-        listAdminPost();
+        $be->listAdminPost();
       }
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}
     }
@@ -131,7 +134,7 @@ if (isset($_GET['action'])) {
     elseif ($action == 'addPost'){
       if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin')
       {
-        $images = getImages();
+        $images = $be->getImages();
         require('view/admin/addPostView.php');
       }
       else {throw new Exception('Erreur : vous n\'êtes pas connecté en tant qu\'administrateur');}
@@ -139,42 +142,42 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'editPost') {
       if (isset($_GET['id']) && $_GET['id'] > 0) {
-        editPost();
+        $be->editPost();
       }
       else {throw new Exception('Erreur : aucun identifiant de billet envoyé');}
     }
 
     elseif ($action == 'insertPost'){
-      addPost();
+      $be->addPost();
     }
 
     elseif ($action == 'updatePost'){
-        updateThePost();
+      $be->updateThePost();
     }
 
     elseif ($action == 'deletePost'){
-        $post_id = strip_tags($_GET['post_id']);
-        deletePost($post_id);
+      $post_id = strip_tags($_GET['post_id']);
+      $be->deletePost($post_id);
     }
 
     elseif ($action == 'allComments'){
-      allComments();
+      $be->allComments();
     }
 
     elseif ($action == 'deleteComment'){
       if($_GET['comment_id'] && ($_GET['step'] =="valid")){
         $comment_id= strip_tags($_GET['comment_id']);
-        deleteComment($comment_id);
+        $be->deleteComment($comment_id);
       }
-      allComments();
+      $be->allComments();
     }
 
     elseif ($action == 'allUsers'){
-      getUsers();
+      $be->getUsers();
     }
 
     elseif ($action == 'mentions'){
-      mentions();
+      $fe->mentions();
     }
 
   }

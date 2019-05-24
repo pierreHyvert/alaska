@@ -158,7 +158,6 @@ class UsersManager extends Manager {
         }
       }
       return $blacklisted;
-
     }
 
 

@@ -94,32 +94,3 @@ else{
 }
 return $bannishButton;
 }
-
-
-
-
-
-//
-// function postToArray(){
-//
-//   $postArray = array(
-//     number_chapter =>'',
-//     title =>'',
-//     author =>'',
-//     post_date_fr =>'',
-//     id_image =>'',
-//     content =>'',
-//     excerpt =>'',
-//     likes ='',
-//     is_visible =''
-//   )
-//
-//   if (isset($_GET['id'])){
-//     $postArray[''] = ""
-//
-//
-//   }
-//
-//
-//
-// }
