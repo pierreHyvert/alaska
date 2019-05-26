@@ -1,9 +1,7 @@
 <?php session_start();
 
-
 require('controller/frontend.php');
 require('controller/backend.php');
-
 
 if (isset($_GET['action'])) {
   $action=strip_tags($_GET['action']);
@@ -11,7 +9,6 @@ if (isset($_GET['action'])) {
     ////////////////FRONT///////////
     $fe = new Frontend();
     $be = new Backend();
-    $users = new Users();
 
     if ($action == 'listPosts') {
       $fe->listPosts();
@@ -37,6 +34,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'addUser'){
       require('controller/users.php');
+      $users = new Users();
       $users->addUser();
     }
 
@@ -46,6 +44,7 @@ if (isset($_GET['action'])) {
           $email = htmlspecialchars($_GET['email']);
           $cle = htmlspecialchars($_GET['cle']);
           require('controller/users.php');
+          $users = new Users();
           $users->validationUser($email, $cle);
         }
       }
@@ -55,6 +54,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'editUser'){
       require('controller/users.php');
+      $users = new Users();
       $users->editUser();
     }
 
@@ -63,6 +63,7 @@ if (isset($_GET['action'])) {
         if (isset($_SESSION['connected']) && $_SESSION['connected'] == 'user' ){
           $email= strip_tags($_GET['user_email']);
           require('controller/users.php');
+          $users = new Users();
           $users->user($email);
         }
         elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin' ){
@@ -80,14 +81,18 @@ if (isset($_GET['action'])) {
     elseif ($action == 'deleteUser'){
       if (isset($_POST['email']) && !empty($_POST['email']) ){
         require('controller/users.php');
+        $users = new Users();
         $email = strip_tags($_POST['email']);
         $users->deleteUser($email);
+        detruireSession();
+        $fe->listPosts();
       }
       else {throw new Exception('Erreur : pas d\'utilisateur à supprimer !');}
     }
 
     elseif ($action == 'connexion'){
       require('controller/users.php');
+      $users = new Users();
       $users->connectUser();
     }
 
@@ -98,6 +103,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'passwordReset'){
       require('controller/users.php');
+      $users = new Users();
       $users->passwordReset(strip_tags($_POST['email']));
       $reset = true;
       require('view/frontend/inscription.php');
@@ -109,6 +115,7 @@ if (isset($_GET['action'])) {
           $email = htmlspecialchars($_GET['email']);
           $cle = $_GET['cle'];
           require('controller/users.php');
+          $users = new Users();
           $users->checkResetKey($email, $cle);
         }
       }
@@ -117,6 +124,7 @@ if (isset($_GET['action'])) {
 
     elseif ($action == 'resetingThePass') {
       require('controller/users.php');
+      $users = new Users();
       $users->resetTheUserPass();
     }
 
@@ -186,5 +194,6 @@ if (isset($_GET['action'])) {
   }
 }
 else {
-  listPosts();
+  $fe = new Frontend();
+  $fe->listPosts();
 }

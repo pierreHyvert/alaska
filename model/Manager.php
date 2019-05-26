@@ -1,6 +1,6 @@
 <?php
 namespace Alaska\Model;
-$local = true;
+$local = false;
 if ($local){
   class Manager{
     protected function dbConnect() {

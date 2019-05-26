@@ -16,7 +16,7 @@ use \Alaska\Model\Globals;
 class Backend {
 
   ////// POSTS ////
-  
+
   public function listAdminPost(){
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
@@ -28,7 +28,7 @@ class Backend {
       $post_id = strip_tags($_GET['id']);
       $postManager = new PostManager();
       $post = $postManager->getPostAdmin($post_id);
-      $images = getImages();
+      $images = $this->getImages();
     }
     require('view/admin/addPostView.php');
   }

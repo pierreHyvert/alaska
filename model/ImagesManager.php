@@ -15,10 +15,6 @@ class ImagesManager extends Manager{
       return $affectedLines;
     }
 
-    public function deleteImage(){
-
-    }
-
 
     public function getAllImages(){
       $db = $this->dbConnect();

@@ -11,7 +11,7 @@ ob_start(); ?>
         <div class="col m8 offset-m2 s10 offset-s1">
             <div class="section no-pad-bot m8 offset-m2 s10 offset-s1" id="index-banner">
                 <h2 class="bleu-fonce-text">
-                    <?= $post_infos['title'] ?>
+                    <span style="font-size:0.5em">Chapitre <?= $post_infos['number_chapter'] ?></span><br> <?= $post_infos['title'] ?>
                 </h2>
                 <div class="infos">
                     <p class="left bold">par
@@ -30,9 +30,9 @@ ob_start(); ?>
 
                 <div id="liker">
                     <?php if ($_SESSION['user_id']){
-          $likeButton = liker($post_infos['id'], $_SESSION['user_id']);
-          echo $likeButton;
-        } ?>
+                        $likeButton = liker($post_infos['id'], $_SESSION['user_id']);
+                        echo $likeButton;}
+                      ?>
                 </div>
                 <!-- Load Facebook SDK for JavaScript -->
                 <div id="fb-root"></div>
@@ -83,7 +83,7 @@ elseif($_SESSION['connected'] AND ($_SESSION['blacklisted'] == false)){ ?>
                                 </div>
                             </form>
                             <?php
-}
+                          }
         while ($comment = $comments->fetch())
         {
           ?>

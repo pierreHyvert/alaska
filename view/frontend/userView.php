@@ -71,27 +71,27 @@ ob_start();
           </div>
         </div>
       </div>
-      <div id="suppress" class="modal">
-        <div class="modal-content">
-          <h3>Supprimer votre compte ?</h3>
-          <p class="red-text">Attention : Pas de retour arrière possible !</p><br>
-          <br>
-          <br>
-          <form action="index.php?action=deleteUser" method="post">
-            <div class="form-group ">
-              <input type="hidden" value="<?php ?>" name="session" >
-              <input type="hidden" value="<?php if(isset($usersList['email'])){echo($usersList['email']);}?>" name="email" >
-              <input class="btn orange" type="submit" value="Supprimer mon compte" />          
-              <p id="canceler" class="btn modal-close waves-effect waves-green">Annuler</a>
 
-            </div>
-          </form>
-        </div>
-      </div>
 
 <?php } ?>
     </form>
+  </div>
+</div>
 
+<div id="suppress" class="modal">
+  <div class="modal-content">
+    <h3>Supprimer votre compte ?</h3>
+    <p class="red-text">Attention : Pas de retour arrière possible !</p><br>
+    <br>
+    <br>
+    <form action="index.php?action=deleteUser" method="post">
+      <div class="form-group ">
+        <input type="hidden" value="<?php ?>" name="session" >
+        <input type="hidden" value="<?php if(isset($usersList['email'])){echo($usersList['email']);}?>" name="email" >
+        <input class="btn orange" type="submit" value="Supprimer mon compte" />
+        <p id="canceler" class="btn modal-close waves-effect waves-green">Annuler</a>
+      </div>
+    </form>
   </div>
 </div>
 

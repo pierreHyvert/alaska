@@ -141,7 +141,7 @@ public function connectUser(){
           header('location: index.php?action=user&user_email='.$email);
         }
         elseif (isset($_SESSION['connected']) && $_SESSION['connected'] == 'admin'){
-          require_once('/controller/backend.php');
+          require_once('controller/backend.php');
           $back = new Backend();
           $back->listAdminPost();
         }
@@ -213,7 +213,6 @@ public function editUser(){
 public function deleteUser($user){
     $usersManager = new UsersManager();
     $usersList = $usersManager->deleteUser($user);
-    require('view/frontend/inscription.php');
   }
 
 public function passwordReset($email){
